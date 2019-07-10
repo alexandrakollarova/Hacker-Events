@@ -32,8 +32,6 @@ function displayResults(responseJson) {
 
 function getEvents(query) {
 
-    Access-Control-Allow-Headers: Bearer;
-
     const options = {
         headers: new Headers({
           "Bearer": "QOAVPXW65GZI6MSN4HL4"
