@@ -1,23 +1,23 @@
 "use strict"
 
 
-function getLocation() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(usePosition);
-    } else { 
-      x.innerHTML = "Geolocation is not supported by this browser.";
-    }
-}
+// function getLocation() {
+//     if (navigator.geolocation) {
+//       navigator.geolocation.getCurrentPosition(usePosition);
+//     } else { 
+//       x.innerHTML = "Geolocation is not supported by this browser.";
+//     }
+// }
 
-function usePosition(position) {
-    const latitude = position.coords.latitude;
-    const longitude = position.coords.longitude;
-}
+// function usePosition(position) {
+//     const latitude = position.coords.latitude;
+//     const longitude = position.coords.longitude;
+// }
 
-$(getLocation);
+// $(getLocation);
 
 
-const searchURL = "https://www.eventbriteapi.com/v3/events/search/?q=hackathons&location.latitude= + latitude + &location.longitude= + longitude + &categories=102";
+const searchURL = "https://www.eventbriteapi.com/v3/events/search/?q=hackathons&location.address=boston";
 
 function formatQueryParams(params) {
     const queryItems = Object.keys(params).map(key => 
@@ -34,7 +34,7 @@ function getEvents(query) {
 
     const options = {
         headers: new Headers({
-          "Bearer": "QOAVPXW65GZI6MSN4HL4"
+            Authorization: "Bearer QOAVPXW65GZI6MSN4HL4"
         })
       };
 
@@ -53,7 +53,7 @@ function getEvents(query) {
             }
             throw new Error(response.statusText);
         })
-        .then(responseJson => console.log(JSON.stringify(responseJson)))
+        .then(responseJson => console.log(responseJson))
         .catch(err => {
             $("#js-error-message").text(`Something went wrong: ${err.message}`);
         });
