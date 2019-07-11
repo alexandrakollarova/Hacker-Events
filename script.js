@@ -1,22 +1,30 @@
 "use strict"
 
-function getLocation() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showPosition);
-    } else { 
-      x.innerHTML = "Geolocation is not supported by this browser.";
-    }
-}
+let latitude;
+let longitude;
 
-$(getLocation);
+function geoFindMe() {
+  function success(position) {
+    latitude  = position.coords.latitude;
+    longitude = position.coords.longitude;
+  }
 
-function showPosition(position) {
-    const latitude = position.coords.latitude;
-    const longitude = position.coords.longitude;
+  function error() {
+    console.log('Unable to retrieve your location')
+  }
+
+  if (!navigator.geolocation) {
+    console.log('Geolocation is not supported by your browser');
+  } else {
+    console.log('Locating…');
+    navigator.geolocation.getCurrentPosition(success, error);
+  }
 }
+$(geoFindMe);
+
 
 const searchURL = "https://www.eventbriteapi.com/v3/events/search/?q=hackathons&location.latitude=" + latitude + "&location.longitude=" + longitude;
-
+console.log(searchURL)
 function formatQueryParams(params) {
     const queryItems = Object.keys(params).map(key => 
         `${encodeURIComponent(key)} = ${encodeURIComponent(params[key])}
@@ -51,7 +59,11 @@ function getEvents(query) {
 
     const options = {
         headers: new Headers({
-            Authorization: "Bearer QOAVPXW65GZI6MSN4HL4"
+            Authorization: "Bearer QOAVPXW65GZI6MSN4HL4",
+            // 'Access-Control-Allow-Credentials' : true,
+            // 'Access-Control-Allow-Origin':'*',
+            // 'Access-Control-Allow-Methods':'GET',
+            // 'Access-Control-Allow-Headers':'application/json',              
         })
       };
 
@@ -63,9 +75,10 @@ function getEvents(query) {
     const url = searchURL + "?" + queryString;    
 
     fetch(url, options)
-        .then(response => {
+    
+        .then(response => {            
             
-            if (response.ok) {
+            if (response.ok) {                
                 return response.json();
             }
             throw new Error(response.statusText);
