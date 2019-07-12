@@ -4,27 +4,38 @@ let latitude;
 let longitude;
 
 function geoFindMe() {
-  function success(position) {
-    latitude  = position.coords.latitude;
-    longitude = position.coords.longitude;
-  }
 
-  function error() {
-    console.log('Unable to retrieve your location')
-  }
+    let options = {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 60000
+    };
 
-  if (!navigator.geolocation) {
-    console.log('Geolocation is not supported by your browser');
-  } else {
-    console.log('Locating…');
-    navigator.geolocation.getCurrentPosition(success, error);
-  }
+    function success(position) {
+        latitude  = position.coords.latitude.toString();
+        longitude = position.coords.longitude.toString(); 
+        console.log(latitude, longitude)
+    }
+
+    function error() {
+        console.log('Unable to retrieve your location')
+    }
+
+    if (!navigator.geolocation) {
+        console.log('Geolocation is not supported by your browser');
+    } else {
+        navigator.geolocation.getCurrentPosition(success, error, options); 
+        console.log("this works")       
+    }
 }
+
 $(geoFindMe);
 
 
 const searchURL = "https://www.eventbriteapi.com/v3/events/search/?q=hackathons&location.latitude=" + latitude + "&location.longitude=" + longitude;
+
 console.log(searchURL)
+
 function formatQueryParams(params) {
     const queryItems = Object.keys(params).map(key => 
         `${encodeURIComponent(key)} = ${encodeURIComponent(params[key])}
@@ -68,11 +79,12 @@ function getEvents(query) {
       };
 
     const params = {
-        location: location
+        // location: location
     }
 
     const queryString = formatQueryParams(params);
-    const url = searchURL + "?" + queryString;    
+    const url = searchURL + "?" + queryString;
+    
 
     fetch(url, options)
     
