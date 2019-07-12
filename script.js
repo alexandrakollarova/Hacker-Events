@@ -44,7 +44,7 @@ function formatQueryParams(params) {
 function displayResults(responseJson) {
     console.log(responseJson);
 
-    for (let i = 0; i < responseJson.top_match_events.events.length; i++) {
+    for (let i = 0; i < responseJson.events.length; i++) {
         $("#js-search-results").append(
             `<section class="event-card">
                 <a href="${responseJson.events[i].url}">
@@ -52,7 +52,7 @@ function displayResults(responseJson) {
                         <img src="${responseJson.events[i].logo.original.url}">
 
                         <div class="container">
-                            <h2>${responseJson.top_match_events.events[i].name.text}</h2> 
+                            <h2>${responseJson.events[i].name.text}</h2> 
                             <h5>${responseJson.location.augmented_location.city}</h5>                            
                             <h5>${responseJson.events[i].start.local}</h5>                            
                             <h5>${responseJson.events[i].end.local}</h5>
@@ -77,7 +77,7 @@ function getEvents(query) {
       };
 
     const params = {
-        // location: location
+        "location.address": location
     }
 
     // const queryString = formatQueryParams(params);
@@ -94,17 +94,23 @@ function getEvents(query) {
             throw new Error(response.statusText);
         })
         .then(responseJson => displayResults(responseJson))
+            
+            
+
+            // const searchInput = $("js-search-input").val();
+
         .catch(err => {
             $("#js-error-message").text(`Something went wrong: ${err.message}`);
         });
 }
 
+
 function watchForm() {
-    $("form").submit(e => {
+    $("form").submit( e => {
         e.preventDefault();
 
-        const searchInput = $("js-search-input").val();
-        getEvents(searchInput);
+        // const searchInput = $("js-search-input").val();
+        getEvents();
     })
 }
 
