@@ -2,6 +2,7 @@
 
 let latitude;
 let longitude;
+let searchURL;
 
 function geoFindMe() {
 
@@ -12,9 +13,10 @@ function geoFindMe() {
     };
 
     function success(position) {
-        latitude  = position.coords.latitude.toString();
-        longitude = position.coords.longitude.toString(); 
-        console.log(latitude, longitude)
+        latitude  = position.coords.latitude.toFixed(6).toString();
+        longitude = position.coords.longitude.toFixed(6).toString(); 
+       
+        searchURL = "https://www.eventbriteapi.com/v3/events/search/?q=hackathons&location.latitude=" + latitude + "&location.longitude=" + longitude;
     }
 
     function error() {
@@ -25,16 +27,12 @@ function geoFindMe() {
         console.log('Geolocation is not supported by your browser');
     } else {
         navigator.geolocation.getCurrentPosition(success, error, options); 
-        console.log("this works")       
+  
     }
 }
 
 $(geoFindMe);
 
-
-const searchURL = "https://www.eventbriteapi.com/v3/events/search/?q=hackathons&location.latitude=" + latitude + "&location.longitude=" + longitude;
-
-console.log(searchURL)
 
 function formatQueryParams(params) {
     const queryItems = Object.keys(params).map(key => 
@@ -46,7 +44,7 @@ function formatQueryParams(params) {
 function displayResults(responseJson) {
     console.log(responseJson);
 
-    for (let i = 0; i < responseJson.events.length; i++) {
+    for (let i = 0; i < responseJson.top_match_events.events.length; i++) {
         $("#js-search-results").append(
             `<section class="event-card">
                 <a href="${responseJson.events[i].url}">
@@ -54,7 +52,7 @@ function displayResults(responseJson) {
                         <img src="${responseJson.events[i].logo.original.url}">
 
                         <div class="container">
-                            <h2>${responseJson.events[i].name.text}</h2> 
+                            <h2>${responseJson.top_match_events.events[i].name.text}</h2> 
                             <h5>${responseJson.location.augmented_location.city}</h5>                            
                             <h5>${responseJson.events[i].start.local}</h5>                            
                             <h5>${responseJson.events[i].end.local}</h5>
@@ -82,11 +80,11 @@ function getEvents(query) {
         // location: location
     }
 
-    const queryString = formatQueryParams(params);
-    const url = searchURL + "?" + queryString;
+    // const queryString = formatQueryParams(params);
+    // const url = searchURL + "?" + queryString;
     
 
-    fetch(url, options)
+    fetch(searchURL, options)
     
         .then(response => {            
             
