@@ -1,25 +1,44 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>WebDev Events</title>
-    <link rel="stylesheet" href="main.css">
+    <link href="https://fonts.googleapis.com/css?family=DM+Sans:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="main.css">    
 </head>
 <body>
 
-    <div class="background-header"></div> 
+    <nav>
+        <header>
+            <h1>WebDev</h1>
+            <span>
+                <h1>EVENTS</h1>
+            </span>            
+        </header>
+    </nav>
 
-    <header>
-            <!-- <h1>All web and software developer events in one place</h1> -->
-            <!-- <h3>Find hackatons, tech talks & worshops and more in your city and beyond</h3> -->
-        <h1>Headline</h1>
-        <h3>Subheading</h3>
-    </header>     
+    <div class="slideshow-container">
+        <div class="mySlides fade">          
+            <img src="images/meetup.jfif">
+        </div>               
+        <div class="mySlides fade">
+            <img src="images/hackathon.jfif">
+        </div>
+        <div class="mySlides fade">
+            <img src="images/conf.jfif">            
+        </div>        
+    </div>
+
+    <section class="headline">
+        <h1>All web and software developer events in one place</h1>
+    </section>     
 
     <main>
+
+        <h3>Find hackatons, tech talks & worshops and more in and beyond your city</h3>
+
 
         <form>
 
@@ -29,8 +48,18 @@
 
             <input type="submit" value="SEARCH" class="submit-button">
             
-            <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+            <input type="range" min="1" max="100" value="50" class="slider" id="js-slider">
    
+
+            <!-- <div class="slider-wrapper">
+                <div id="slider-js">                        
+                    <div id="slider-handle"></div>
+                    <div id="slider-counter">1</div>
+                    <div id="slider-progress"></div>
+                </div>
+            </div> -->
+
+
         </form>
         <section class="search-results" id="js-search-results">
 
