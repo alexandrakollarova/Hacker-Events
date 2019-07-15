@@ -5,7 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>WebDev Events</title>
+    <!-- ICONS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- FONTS -->
     <link href="https://fonts.googleapis.com/css?family=DM+Sans:400,700&display=swap" rel="stylesheet">
+    <!-- STYLE -->
     <link rel="stylesheet" href="main.css">    
 </head>
 <body>
@@ -19,31 +24,23 @@
         </header>
     </nav>
 
-    <div class="slideshow-container">
-        <div class="mySlides fade">          
-            <img src="images/meetup.jfif">
-        </div>               
-        <div class="mySlides fade">
-            <img src="images/hackathon.jfif">
-        </div>
-        <div class="mySlides fade">
-            <img src="images/conf.jfif">            
-        </div>        
-    </div>
+    <section class="hero">
+        <img src="images/bg.png" alt="background-image" class="background-image">
 
-    <section class="headline">
-        <h1>All web and software developer events in one place</h1>
-    </section>     
+        <section class="headline">
+            <h1>Browse Web & Software Developer Events here.</h1>
+        </section>    
+    </section>
 
     <main>
 
-        <h3>Find hackatons, tech talks & worshops and more in and beyond your city</h3>
+        <h3>Find hackatons, tech talks & worshops and more in and beyond your city.</h3>
 
 
         <form>
 
             <label for="search-input">
-                <input type="text" name="search-input" placeholder="in Boston" class="search-input" id="js-search-input">
+                <input type="text" name="search-input" placeholder="e.g. Boston" class="search-input" id="js-search-input">
             </label>
 
             <input type="submit" value="SEARCH" class="submit-button">
@@ -51,21 +48,14 @@
             <input type="range" min="1" max="100" value="50" class="slider" id="js-slider">
    
 
-            <!-- <div class="slider-wrapper">
-                <div id="slider-js">                        
-                    <div id="slider-handle"></div>
-                    <div id="slider-counter">1</div>
-                    <div id="slider-progress"></div>
-                </div>
-            </div> -->
-
-
         </form>
-        <section class="search-results" id="js-search-results">
 
+        <div class="background-upcoming">
             <h4>Upcoming</h4>
-            
-        </section>   
+
+            <section class="search-results" id="js-search-results"></section>   
+
+        </div>
 
     </main>
 
