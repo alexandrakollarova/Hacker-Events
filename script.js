@@ -1,21 +1,5 @@
 "use strict"
 
-var slideIndex = 0;
-showSlides();
-
-function showSlides() {
-  var i;
-  var slides = document.getElementsByClassName("mySlides");
-  for (i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";  
-  }
-  slideIndex++;
-  if (slideIndex > slides.length) {slideIndex = 1}    
-  
-  slides[slideIndex-1].style.display = "block";  
-  setTimeout(showSlides, 4000); 
-}
-
 let latitude;
 let longitude;
 let searchURL;
@@ -32,7 +16,7 @@ function geoFindMe() {
         latitude  = position.coords.latitude.toFixed(6).toString();
         longitude = position.coords.longitude.toFixed(6).toString(); 
        
-        searchURL = "https://www.eventbriteapi.com/v3/events/search/?q=hackathons&location.latitude=" + latitude + "&location.longitude=" + longitude;
+        searchURL = "https://www.eventbriteapi.com/v3/events/search/?q=hackathons&expand=venue,organizer&location.latitude=" + latitude + "&location.longitude=" + longitude;
     }
 
     function error() {
@@ -49,7 +33,7 @@ function geoFindMe() {
 
 $(geoFindMe);
 
-const searchURLByNewInput = "https://www.eventbriteapi.com/v3/events/search/?q=hackathons";
+const searchURLByNewInput = "https://www.eventbriteapi.com/v3/events/search/?q=hackathons&expand=venue,organizer";
 
 function formatQueryParams(params) {
     const queryItems = Object.keys(params).map(key => 
@@ -64,21 +48,45 @@ function displayResults(responseJson) {
     $("#js-search-results").empty();
 
     for (let i = 0; i < responseJson.events.length; i++) {
-        
+
+        const startDateFromAPI = responseJson.events[i].start.local;       
+        const startDate = new Date(startDateFromAPI); 
+        const dateAsNiceString1 = startDate.toLocaleString([], {weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute:'2-digit'});
+
+        let isFreeString;
+        if (responseJson.events[i].is_free) {
+            isFreeString = "Free";
+        }  else {
+            isFreeString = "";
+        }
+
+        if (responseJson.events[i].logo === null) {            
+            $("#js-logo-url").hide();
+            $("#s-backup-img").append(
+                `<img src="images/question-mark.png">`
+            )         
+        }
+
+                      
         $("#js-search-results").append(
             `<section class="event-card">
                 <a href="${responseJson.events[i].url}">
                     <div class="card">
-                        <img src="${responseJson.events[i].logo.original.url}">
+                        <img src="${responseJson.events[i].logo.original.url}" id="js-logo-url">
                         <div class="container">
-                            <h2>${responseJson.events[i].name.text}</h2>                                                        
-                            <h5>${responseJson.events[i].start.local}</h5>                            
-                            <h5>${responseJson.events[i].end.local}</h5>
+                            <h2>${responseJson.events[i].name.text}</h2>
+                            <div class="inner-container">
+                                <i class="material-icons" style="font-size: 26px">&#xe7f1;</i> 
+                                <h5>${responseJson.events[i].venue.name}, ${responseJson.events[i].venue.address.city}, ${responseJson.events[i].venue.address.region} </h5>
+                                <i class='fa' style="padding-left: 3px">&#xf073;</i>                                                       
+                                <h5>${dateAsNiceString1}</h5>                            
+                                <h5 style="color: #EC4D3C">${isFreeString}</h5>
+                            </div>
                         </div>
                     </div>
                 </a>
             </section>`);
-    }    
+    }        
 }
 
 function getDefaultEvents() {
@@ -114,7 +122,7 @@ function getEvents(query) {
       };
 
     const params = {
-        "location.address": query
+        "location.address": query,
     }
 
     const queryString = formatQueryParams(params);
@@ -156,72 +164,3 @@ $(watchForm);
 
 
 
-// SLIDER STUFF
-
-// const rangeSliderController = (function(){
-// 	const slider = document.getElementById("slider-js");
-// 	const sliderHandle = document.getElementById("slider-handle");
-// 	const sliderCounter = document.getElementById("slider-counter");
-// 	const sliderValue = 7; // give any slider value, result will be n+1
-// 	let sliderOffset = slider.offsetLeft;
-// 	let sliderWidth = slider.offsetWidth;
-// 	let isMoving = false;
-// 	let handlePosition = null;
-// 	let valueStops = (function(){
-// 	  let array = [];
-// 	  let fraction = sliderWidth / sliderValue;
-// 	  for (let i = 0; i <= sliderValue; i++) {
-// 			array.push(fraction * i);
-// 		  };
-// 		return(array)
-// 	  }());
-// 	let skipPoint = valueStops[1]/2;
-
-// 	window.addEventListener("resize", function() {
-// 		isMoving = false;
-// 		handlePosition = null;
-// 		valueStops = (function(){
-// 			let array = [];
-// 			let fraction = sliderWidth / sliderValue;
-// 			for (let i = 0; i <= sliderValue; i++) {
-// 				array.push(fraction * i)
-// 			};
-// 			return(array);
-// 		}());
-// 		skipPoint = valueStops[1]/2;
-// 		sliderOffset = slider.offsetLeft;
-// 		sliderWidth = slider.offsetWidth;
-// 	});
-
-// 	slider.addEventListener("mousedown", function(event){
-// 		event.preventDefault();
-// 		isMoving = true;
-// 		handlePosition = event.pageX - sliderOffset;
-// 		valueStops.forEach(function(stop, i){
-// 			if ( handlePosition >= (stop - skipPoint ) ) {
-// 				sliderHandle.style.left = stop + "px";
-// 				sliderCounter.style.left = stop + "px";
-// 				sliderCounter.innerHTML = i + 1;
-// 			}
-// 		})
-
-// 	});
-
-// 	window.addEventListener("mousemove", function(event){
-// 		if (isMoving) {
-// 			handlePosition = event.pageX - sliderOffset;
-// 			handlePosition = Math.min(Math.max(parseInt(handlePosition), 0), sliderWidth);
-// 			valueStops.forEach(function(stop, i){
-// 				if ( handlePosition >= (stop - skipPoint ) ) {
-// 					sliderHandle.style.left = stop + "px";
-// 					sliderCounter.style.left = stop + "px";
-// 					sliderCounter.innerHTML = i + 1;
-// 				}
-// 			})
-// 		}
-// 	})
-
-// 	window.addEventListener("mouseup", function(event){
-// 		isMoving = false;
-// 	})
-// })()
