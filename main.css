@@ -365,6 +365,10 @@ a {
     .slider {
         width: 70%
     }
+
+    nav header h1 {
+        margin-left: 30px
+    }
     
 }
 

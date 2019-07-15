@@ -33,6 +33,7 @@ function geoFindMe() {
 
 $(geoFindMe);
 
+
 const searchURLByNewInput = "https://www.eventbriteapi.com/v3/events/search/?q=hackathons&expand=venue,organizer";
 
 function formatQueryParams(params) {
@@ -89,13 +90,20 @@ function displayResults(responseJson) {
     }        
 }
 
-function getDefaultEvents() {
+function getDefaultEvents(miles) {
 
     const options = {
         headers: new Headers({
             Authorization: "Bearer QOAVPXW65GZI6MSN4HL4",             
         })
       };
+
+      const params = {
+        "location.within": miles
+    }
+
+    const queryString = formatQueryParams(params);
+    const url = searchURLByNewInput + "&" + queryString;   
 
     fetch(searchURL, options)    
         .then(response => {         
@@ -113,16 +121,17 @@ function getDefaultEvents() {
 
 }
 
-function getEvents(query) {
+function getEvents(query, miles) {
 
     const options = {
         headers: new Headers({
-            Authorization: "Bearer QOAVPXW65GZI6MSN4HL4",                         
+            Authorization: "Bearer QOAVPXW65GZI6MSN4HL4",                      
         })
       };
 
     const params = {
         "location.address": query,
+        "location.within": miles
     }
 
     const queryString = formatQueryParams(params);
@@ -144,16 +153,28 @@ function getEvents(query) {
         });
 }
 
-function watchForm() {
+
+function watchForm() {    
+
     $("form").submit(e => {
         e.preventDefault();
 
         let searchInput = $("#js-search-input").val();
+        let slider = document.getElementById("js-slider");
+        let sliderValue = document.getElementById("js-within-value");    
+        
+        sliderValue.innerHTML = slider.value;
+    
+        slider.oninput = function() {
+            sliderValue.innerHTML = this.value;
+        }
 
         if (!(searchInput)) {
-            getDefaultEvents();
+            console.log(sliderValue)
+            getDefaultEvents(sliderValue);
         } else {
-            getEvents(searchInput);
+            console.log(sliderValue)
+            getEvents(searchInput, sliderValue);
         }
 
     })
