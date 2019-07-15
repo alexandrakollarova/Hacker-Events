@@ -157,17 +157,16 @@ function getEvents(query, miles) {
 function watchForm() {  
     
     let searchInput = $("#js-search-input").val();
+
     let slider = document.getElementById("js-slider");
     let sliderValue = slider.value; 
     
-        slider.oninput = function() {
-            sliderValue.innerHTML = this.value;
-        }
+    slider.oninput = function() {
+        $('#js-within-value').innerHTML = sliderValue;
+    }
 
     $("form").submit(e => {
-        e.preventDefault();
-
-        
+        e.preventDefault();        
 
         if (!(searchInput)) {
             console.log(sliderValue)
