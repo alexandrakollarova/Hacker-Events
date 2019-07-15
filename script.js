@@ -157,8 +157,8 @@ function getEvents(query, miles) {
 function watchForm() {     
 
     $('#js-slider').on('change', (event) => {
-        let sliderValue  = event.value    
-        $('#js-within-value').innerHTML = sliderValue; 
+        let sliderValue  = event.currentTarget.value 
+        $('#js-within-value')[0].innerHTML = 0;
         })
 
     $("form").submit(e => {
@@ -168,7 +168,7 @@ function watchForm() {
         
         let slider = document.getElementById("js-slider"); 
         let sliderValue = slider.value;
-        $('#js-within-value').innerHTML = sliderValue;
+        $('#js-within-value')[0].innerHTML = 0;
 
         if (!(searchInput)) {
             console.log(sliderValue)
