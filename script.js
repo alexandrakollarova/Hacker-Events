@@ -154,20 +154,20 @@ function getEvents(query, miles) {
 }
 
 
-function watchForm() {    
-
-    $("form").submit(e => {
-        e.preventDefault();
-
-        let searchInput = $("#js-search-input").val();
-        let slider = document.getElementById("js-slider");
-        let sliderValue = document.getElementById("js-within-value");    
-        
-        sliderValue.innerHTML = slider.value;
+function watchForm() {  
+    
+    let searchInput = $("#js-search-input").val();
+    let slider = document.getElementById("js-slider");
+    let sliderValue = slider.value; 
     
         slider.oninput = function() {
             sliderValue.innerHTML = this.value;
         }
+
+    $("form").submit(e => {
+        e.preventDefault();
+
+        
 
         if (!(searchInput)) {
             console.log(sliderValue)
