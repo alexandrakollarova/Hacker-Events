@@ -2,10 +2,9 @@
 
 let latitude;
 let longitude;
-let searchDefaultURL;
+let searchDefaultURLFromEventBrite;
 
 function geoFindMe() {
-
     let options = {
         enableHighAccuracy: true,
         timeout: 5000,
@@ -16,7 +15,7 @@ function geoFindMe() {
         latitude  = position.coords.latitude.toFixed(6).toString();
         longitude = position.coords.longitude.toFixed(6).toString(); 
        
-        searchDefaultURL = "https://www.eventbriteapi.com/v3/events/search/?q=hackathons&expand=venue,organizer&location.latitude=" + latitude + "&location.longitude=" + longitude;
+        searchDefaultURLFromEventBrite = "https://www.eventbriteapi.com/v3/events/search/?q=hackathons&expand=venue,organizer&location.latitude=" + latitude + "&location.longitude=" + longitude;
     }
 
     function error() {
@@ -26,15 +25,14 @@ function geoFindMe() {
     if (!navigator.geolocation) {
         console.log('Geolocation is not supported by your browser');
     } else {
-        navigator.geolocation.getCurrentPosition(success, error, options); 
-  
+        navigator.geolocation.getCurrentPosition(success, error, options);   
     }
 }
 
 $(geoFindMe);
 
 
-const searchNewInputURL = "https://www.eventbriteapi.com/v3/events/search/?q=hackathons&expand=venue,organizer";
+const searchNewInputURLFromEventBrite = "https://www.eventbriteapi.com/v3/events/search/?q=hackathons&expand=venue,organizer";
 
 function formatQueryParams(params) {
     const queryItems = Object.keys(params).map(key => 
@@ -43,7 +41,7 @@ function formatQueryParams(params) {
         return queryItems.join("&");
 }
 
-function displayResults(responseJson) {
+function displayResultsFromEventBrite(responseJson) {
     console.log(responseJson);
 
     $("#js-search-results").empty();
@@ -90,10 +88,10 @@ function displayResults(responseJson) {
             }
             
             let logo;
-            if (responseJson.events[i].logo.original.url) {            
-                logo = responseJson.events[i].logo.original.url;
+            if (responseJson.events[i].logo && responseJson.events[i].logo.original && responseJson.events[i].logo.original.url) {            
+                logo = responseJson.events[i].logo.original.url;                   
             } else {
-                logo = `<img src="images/question-mark.png">`                    
+                logo = `<img src="images/question-mark.png">`
             }
 
                         
@@ -119,8 +117,9 @@ function displayResults(responseJson) {
     }        
 }
 
-function getDefaultEvents(miles) {
 
+
+function getDefaultEventsFromEventBrite(miles) {
     const options = {
         headers: new Headers({
             Authorization: "Bearer QOAVPXW65GZI6MSN4HL4",             
@@ -132,26 +131,22 @@ function getDefaultEvents(miles) {
     }
 
     const queryString = formatQueryParams(params);
-    const url = searchDefaultURL + "&" + queryString;   
+    const url = searchDefaultURLFromEventBrite + "&" + queryString;   
 
     fetch(url, options)    
-        .then(response => {         
-            
+        .then(response => {  
             if (response.ok) {                
                 return response.json();
             }
             throw new Error(response.statusText);
         })
-        .then(responseJson => displayResults(responseJson))
-
+        .then(responseJson => displayResultsFromEventBrite(responseJson))
         .catch(err => {
             $("#js-error-message").text(`Something went wrong: ${err.message}`);
         });
-
 }
 
-function getEvents(query, miles) {
-
+function getEventsFromEventBrite(query, miles) {
     const options = {
         headers: new Headers({
             Authorization: "Bearer QOAVPXW65GZI6MSN4HL4",                      
@@ -164,27 +159,23 @@ function getEvents(query, miles) {
     }
 
     const queryString = formatQueryParams(params);
-    const url = searchNewInputURL + "&" + queryString;    
+    const url = searchNewInputURLFromEventBrite + "&" + queryString;    
 
-    fetch(url, options)
-    
-        .then(response => {            
-            
+    fetch(url, options)    
+        .then(response => {         
             if (response.ok) {                
                 return response.json();
             }
             throw new Error(response.statusText);
         })
-        .then(responseJson => displayResults(responseJson))
-
+        .then(responseJson => displayResultsFromEventBrite(responseJson))
         .catch(err => {
             $("#js-error-message").text(`Something went wrong: ${err.message}`);
         });
 }
 
 
-function watchForm() {     
-
+function watchForm() {
     var slider = document.getElementById("js-slider");
     var output = document.getElementById("js-within-value");
     output.innerHTML = slider.value; // Display the default slider value
@@ -195,17 +186,14 @@ function watchForm() {
 
     $("form").submit(e => {
         e.preventDefault(); 
-
-        let searchInput = $("#js-search-input").val();
-        
+        let searchInput = $("#js-search-input").val();        
         let sliderValue = slider.value+"mi";      
 
         if (!(searchInput)) {
-            getDefaultEvents(sliderValue);
+            getDefaultEventsFromEventBrite(sliderValue);
         } else {
-            getEvents(searchInput, sliderValue);
+            getEventsFromEventBrite(searchInput, sliderValue);
         }
-
     })
 }
 
