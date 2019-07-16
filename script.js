@@ -49,65 +49,73 @@ function displayResults(responseJson) {
     $("#js-search-results").empty();
 
     for (let i = 0; i < responseJson.events.length; i++) {
-
-        const startDateFromAPI = responseJson.events[i].start.local;       
-        const startDate = new Date(startDateFromAPI); 
-        const dateAsNiceString1 = startDate.toLocaleString([], {weekday: 'short', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute:'2-digit'});
-
-        let isFreeString;
-        if (responseJson.events[i].is_free) {
-            isFreeString = "Free";
-        }  else {
-            isFreeString = `<i class="material-icons" style="color: #EC4D3C; padding-left: 3px">&#xe227;</i>`;
-        }
-
-        let venueName;        
-        if (responseJson.events[i].venue.name) {
-            venueName = responseJson.events[i].venue.name +",";
-        } else {
-            venueName = ""
-        }
-
-        let venueAddressCity;
-        if (responseJson.events[i].venue.address.city) {
-            venueAddressCity = responseJson.events[i].venue.address.city +",";
-        } else {
-            venueAddressCity = ""
-        }
-
-        let venueAddressRegion;
-        if (responseJson.events[i].venue.address.region) {
-            venueAddressRegion = venueAddressRegion = responseJson.events[i].venue.address.region;
-        } else {            
-           venueAddressRegion = ""
-        }
         
-        if (responseJson.events[i].logo === null) {            
-            $("#js-logo-url").hide();
-            $("#s-backup-img").append(
-                `<img src="images/question-mark.png">`
-            )         
-        }
+        if (responseJson.events.length === 0) {
+            console.log("here")
+            $("#js-search-results").append(
+                `<h2>No events found</h2>`
+            );
+        } else {
 
-                      
-        $("#js-search-results").append(
-            `<section class="event-card">
-                <a href="${responseJson.events[i].url}">
-                    <div class="card">
-                        <img src="${responseJson.events[i].logo.original.url}" id="js-logo-url">
-                        <div class="container">
-                            <h2>${responseJson.events[i].name.text}</h2>
-                            <div class="inner-container">
-                                <i class="material-icons" style="font-size: 26px">&#xe7f1;</i> 
-                                <h5>${venueName} ${venueAddressCity} ${venueAddressRegion}</h5>
-                                <i class='fa' style="padding-left: 3px">&#xf073;</i>                                                       
-                                <h5>${dateAsNiceString1}</h5>                            
-                                <h5 style="color: #EC4D3C">${isFreeString}</h5>
+            const startDateFromAPI = responseJson.events[i].start.local;       
+            const startDate = new Date(startDateFromAPI); 
+            const dateAsNiceString1 = startDate.toLocaleString([], {weekday: 'short', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute:'2-digit'});
+
+            let isFree;
+            if (responseJson.events[i].is_free) {
+                isFree = "Free";
+            }  else {
+                isFree = `<i class="material-icons" style="color: #EC4D3C; padding-left: 3px">&#xe227;</i>`;
+            }
+
+            let venueName;        
+            if (responseJson.events[i].venue.name) {
+                venueName = responseJson.events[i].venue.name +",";
+            } else {
+                venueName = ""
+            }
+
+            let venueAddressCity;
+            if (responseJson.events[i].venue.address.city) {
+                venueAddressCity = responseJson.events[i].venue.address.city +",";
+            } else {
+                venueAddressCity = ""
+            }
+
+            let venueAddressRegion;
+            if (responseJson.events[i].venue.address.region) {
+                venueAddressRegion = responseJson.events[i].venue.address.region;
+            } else {            
+                venueAddressRegion = ""
+            }
+            
+            let logo;
+            if (responseJson.events[i].logo.original.url) {            
+                logo = responseJson.events[i].logo.original.url;
+            } else {
+                logo = `<img src="images/question-mark.png">`                    
+            }
+
+                        
+            $("#js-search-results").append(
+                `<section class="event-card">
+                    <a href="${responseJson.events[i].url}">
+                        <div class="card">
+                            <img src="${logo}" id="js-logo-url">
+                            <div class="container">
+                                <h2>${responseJson.events[i].name.text}</h2>
+                                <div class="inner-container">
+                                    <i class="material-icons" style="font-size: 26px">&#xe7f1;</i> 
+                                    <h5>${venueName} ${venueAddressCity} ${venueAddressRegion}</h5>
+                                    <i class='fa' style="padding-left: 3px">&#xf073;</i>                                                       
+                                    <h5>${dateAsNiceString1}</h5>                            
+                                    <h5 style="color: #EC4D3C">${isFree}</h5>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </a>
-            </section>`);
+                    </a>
+                </section>`);
+        }
     }        
 }
 
