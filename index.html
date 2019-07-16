@@ -8,37 +8,47 @@
     <!-- ICONS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
     <!-- FONTS -->
     <link href="https://fonts.googleapis.com/css?family=DM+Sans:400,700&display=swap" rel="stylesheet">
     <!-- STYLE -->
-    <link rel="stylesheet" href="main.css">    
+    <link rel="stylesheet" href="main.css"> 
 </head>
 <body>
 
     <nav>
         <header>
-            <h1>WebDev</h1>
+            <h1 class="hacker">Hacker</h1>
             <span>
                 <h1>EVENTS</h1>
             </span>            
         </header>
+
+        <i style="font-size:24px" class="fa" id="hamburger-menu1">&#xf0f4;</i>
+  
+        <div id="nav" class="nav" hidden>
+            <i style='font-size:24px' class='fas' id="hamburger-menu2">&#xf061;</i>
+
+            <ul class="open-nav">
+                <li id="whats-hackathon"><span>What's</span> HACKATHON</li>
+                <li id="watch-hackathon"><span>Watch</span> HACKATHON</span></li>
+            </ul>
+        </div>                     
     </nav>
 
     <section class="hero">
         <img src="images/bg.png" alt="background-image" class="background-image">
 
         <section class="headline">
-            <h1>Browse Web & Software Developer Events here.</h1>
+            <h1>Browse All Hackathon Events here.</h1>
         </section>    
     </section>
 
     <main>
 
-        <h3>Find hackatons, tech talks & worshops and more in and beyond your city.</h3>
-
+        <h3>Find all hackathons in and beyond your city.</h3>
 
         <form>
-
             <label for="search-input">
                 <input type="text" name="search-input" placeholder="e.g. Boston" class="search-input" id="js-search-input">
             </label>
@@ -46,8 +56,8 @@
             <input type="submit" value="SEARCH" class="submit-button">
             
             <input type="range" min="1" max="100" value="8" class="slider" id="js-slider">
+            
             <p>within <span id="js-within-value"></span> mi</p>
-
         </form>
 
         <div class="background-upcoming">
@@ -56,6 +66,14 @@
             <section class="search-results" id="js-search-results"></section>   
 
         </div>
+
+        <section>
+            <h4>What's hackathon?</h4>
+        </section>
+
+        <section>
+            <h4>Watch hackathon</h4>
+        </section>
 
     </main>
 
