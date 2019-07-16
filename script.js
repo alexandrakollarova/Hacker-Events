@@ -2,7 +2,7 @@
 
 let latitude;
 let longitude;
-let searchURL;
+let searchDefaultURL;
 
 function geoFindMe() {
 
@@ -16,7 +16,7 @@ function geoFindMe() {
         latitude  = position.coords.latitude.toFixed(6).toString();
         longitude = position.coords.longitude.toFixed(6).toString(); 
        
-        searchURL = "https://www.eventbriteapi.com/v3/events/search/?q=hackathons&expand=venue,organizer&location.latitude=" + latitude + "&location.longitude=" + longitude;
+        searchDefaultURL = "https://www.eventbriteapi.com/v3/events/search/?q=hackathons&expand=venue,organizer&location.latitude=" + latitude + "&location.longitude=" + longitude;
     }
 
     function error() {
@@ -34,7 +34,7 @@ function geoFindMe() {
 $(geoFindMe);
 
 
-const searchURLByNewInput = "https://www.eventbriteapi.com/v3/events/search/?q=hackathons&expand=venue,organizer";
+const searchNewInputURL = "https://www.eventbriteapi.com/v3/events/search/?q=hackathons&expand=venue,organizer";
 
 function formatQueryParams(params) {
     const queryItems = Object.keys(params).map(key => 
@@ -52,15 +52,36 @@ function displayResults(responseJson) {
 
         const startDateFromAPI = responseJson.events[i].start.local;       
         const startDate = new Date(startDateFromAPI); 
-        const dateAsNiceString1 = startDate.toLocaleString([], {weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute:'2-digit'});
+        const dateAsNiceString1 = startDate.toLocaleString([], {weekday: 'short', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute:'2-digit'});
 
         let isFreeString;
         if (responseJson.events[i].is_free) {
             isFreeString = "Free";
         }  else {
-            isFreeString = "";
+            isFreeString = `<i class="material-icons" style="color: #EC4D3C; padding-left: 3px">&#xe227;</i>`;
         }
 
+        let venueName;        
+        if (responseJson.events[i].venue.name) {
+            venueName = responseJson.events[i].venue.name +",";
+        } else {
+            venueName = ""
+        }
+
+        let venueAddressCity;
+        if (responseJson.events[i].venue.address.city) {
+            venueAddressCity = responseJson.events[i].venue.address.city +",";
+        } else {
+            venueAddressCity = ""
+        }
+
+        let venueAddressRegion;
+        if (responseJson.events[i].venue.address.region) {
+            venueAddressRegion = venueAddressRegion = responseJson.events[i].venue.address.region;
+        } else {            
+           venueAddressRegion = ""
+        }
+        
         if (responseJson.events[i].logo === null) {            
             $("#js-logo-url").hide();
             $("#s-backup-img").append(
@@ -78,7 +99,7 @@ function displayResults(responseJson) {
                             <h2>${responseJson.events[i].name.text}</h2>
                             <div class="inner-container">
                                 <i class="material-icons" style="font-size: 26px">&#xe7f1;</i> 
-                                <h5>${responseJson.events[i].venue.name}, ${responseJson.events[i].venue.address.city}, ${responseJson.events[i].venue.address.region} </h5>
+                                <h5>${venueName} ${venueAddressCity} ${venueAddressRegion}</h5>
                                 <i class='fa' style="padding-left: 3px">&#xf073;</i>                                                       
                                 <h5>${dateAsNiceString1}</h5>                            
                                 <h5 style="color: #EC4D3C">${isFreeString}</h5>
@@ -103,9 +124,9 @@ function getDefaultEvents(miles) {
     }
 
     const queryString = formatQueryParams(params);
-    const url = searchURLByNewInput + "&" + queryString;   
+    const url = searchDefaultURL + "&" + queryString;   
 
-    fetch(searchURL, options)    
+    fetch(url, options)    
         .then(response => {         
             
             if (response.ok) {                
@@ -135,7 +156,7 @@ function getEvents(query, miles) {
     }
 
     const queryString = formatQueryParams(params);
-    const url = searchURLByNewInput + "&" + queryString;    
+    const url = searchNewInputURL + "&" + queryString;    
 
     fetch(url, options)
     
@@ -156,25 +177,24 @@ function getEvents(query, miles) {
 
 function watchForm() {     
 
-    $('#js-slider').on('change', (event) => {
-        let sliderValue  = event.currentTarget.value 
-        $('#js-within-value')[0].innerHTML = 0;
-        })
+    var slider = document.getElementById("js-slider");
+    var output = document.getElementById("js-within-value");
+    output.innerHTML = slider.value; // Display the default slider value
+
+    slider.oninput = function() {
+        output.innerHTML = this.value;
+    }
 
     $("form").submit(e => {
         e.preventDefault(); 
 
         let searchInput = $("#js-search-input").val();
         
-        let slider = document.getElementById("js-slider"); 
-        let sliderValue = slider.value;
-        $('#js-within-value')[0].innerHTML = 0;
+        let sliderValue = slider.value+"mi";      
 
         if (!(searchInput)) {
-            console.log(sliderValue)
             getDefaultEvents(sliderValue);
         } else {
-            console.log(sliderValue)
             getEvents(searchInput, sliderValue);
         }
 
