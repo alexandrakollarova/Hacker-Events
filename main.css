@@ -9,9 +9,45 @@ body {
     box-sizing: border-box;
 }
 
+.fa, .fas {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    color: #EC4D3C;
+    z-index: 2;
+    font-size: 24px;
+}
+
+.open-nav {
+    list-style: none;
+    text-align: left;
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    padding-top: 130px;
+    z-index: 1;
+    background-color: #13D1FC;
+    border-radius: 100%;
+    color: white
+}
+
+ul li {
+    font-size: 18px;
+    line-height: 40px;
+    font-weight: 700;
+    word-spacing: 5px
+}
+
+ul li span {
+    font-style: italic;
+    font-weight: 400
+}
+
 .background-image {
     width: 100%;
-    opacity: 0.5;    
+    opacity: 0.5;
 }
 
 nav header h1 {
@@ -27,7 +63,10 @@ nav header h1 {
 nav header span h1 {
     margin-top: -5px;
     font-weight: 700;
-    letter-spacing: 0.5px;
+}
+
+.hacker {
+    letter-spacing: 2px;
 }
 
 .headline {
@@ -130,7 +169,7 @@ main h4 {
     font-size: 26px;
     -webkit-transition: ease-in-out 2s;
     transition: ease-in-out 2s;
-    color: white;
+    /* color: white; */
     padding-left: 30px;
     padding-top: 50px;
 }
