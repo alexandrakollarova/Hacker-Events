@@ -1,5 +1,15 @@
 "use strict"
 
+$("#hamburger-menu1").on("click", e => {
+    $("#hamburger-menu1").hide();
+    $("#nav").show();
+})
+
+$("#hamburger-menu2").on("click", e => {
+    $("#nav").hide();
+    $("#hamburger-menu1").show();
+})
+
 let latitude;
 let longitude;
 let searchDefaultURLFromEventBrite;
@@ -46,12 +56,15 @@ function displayResultsFromEventBrite(responseJson) {
 
     $("#js-search-results").empty();
 
-    for (let i = 0; i < responseJson.events.length; i++) {
+    for (let i = 0; i <= responseJson.events.length; i++) {
         
         if (responseJson.events.length === 0) {
             console.log("here")
             $("#js-search-results").append(
-                `<h2>No events found</h2>`
+                `<div style="color: white">
+                    <h2>No hackathons found</h2>
+                    <i style='font-size:24px' class='far'>&#xf119;</i>
+                </div>`
             );
         } else {
 
