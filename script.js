@@ -135,45 +135,22 @@ function displayResultsFromYoutube(responseJson) {
 
     for (let i = 0; i <= responseJson.items.length; i++) {
 
-        // Load the IFrame Player API code asynchronously.
-      var tag = document.createElement('script');
-      tag.src = "https://www.youtube.com/player_api";
-      var firstScriptTag = document.getElementsByTagName('script')[0];
-      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-  
-      // Replace the 'ytplayer' element with an <iframe> and
-      // YouTube player after the API code downloads.
-      var player;
-      function onYouTubePlayerAPIReady() {
-          player = new YT.Player('ytplayer', {
-          height: '360',
-          width: '640',
-          videoId: responseJson.items[i].videoId        
-        });
-      }        
-
         $("#js-youtube-results").append(
-            `<iframe id="ytplayer" type="text/html" width="640" height="360"
-            src="https://www.youtube.com/embed?" + videoID + "autoplay=1&origin=http://example.com"
-            frameborder="0"></iframe>
-            `
-        )
-    }
-
-    //     $("#js-youtube-results").append(
-    //         `<section class="event-card">
-    //             <a href="">
-    //                 <div class="card">                    
-    //                     <div class="container">
-    //                         <h2>${responseJson.items[i].snippet.title}</h2>
-    //                         <div class="inner-container">                                 
-    //                             <p>${responseJson.items[i].snippet.description}</p>
-    //                             <h5>${responseJson.items[i].snippet.publishedAt}</h5>
-    //                         </div>
-    //                     </div>
-    //                 </div>
-    //             </a>
-    //         </section>`);
+            `<section class="event-card">
+                <a href="">
+                    <div class="card">
+                        <img src="${responseJson.items[i].snippet.thumbnails.high.url}">                    
+                        <div class="container">
+                            <h2>${responseJson.items[i].snippet.title}</h2>
+                            <div class="inner-container">                                 
+                                <p>${responseJson.items[i].snippet.description}</p>
+                                <h5>${responseJson.items[i].snippet.publishedAt}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </section>`);
+        }
 }
 
 function getDefaultEventsFromEventBrite(miles) {
@@ -290,9 +267,3 @@ function watchForm() {
 $(watchForm);
 
   
-
-
-
-    
-
-
