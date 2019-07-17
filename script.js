@@ -67,7 +67,7 @@ function displayResultsFromEventBrite(responseJson) {
 
             const startDateFromAPI = responseJson.events[i].start.local;       
             const startDate = new Date(startDateFromAPI); 
-            const dateAsNiceString1 = startDate.toLocaleString([], {weekday: 'short', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute:'2-digit'});
+            const dateAsNiceString = startDate.toLocaleString([], {weekday: 'short', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute:'2-digit'});
 
             let isFree;
             if (responseJson.events[i].is_free) {
@@ -116,7 +116,7 @@ function displayResultsFromEventBrite(responseJson) {
                                     <i class="material-icons" style="font-size: 28px">&#xe7f1;</i> 
                                     <h5>${venueName} ${venueAddressCity} ${venueAddressRegion}</h5>
                                     <i class='fa' style="padding-left: 3px">&#xf073;</i>                                                       
-                                    <h5 style="padding-left: 38px">${dateAsNiceString1}</h5>                            
+                                    <h5 style="padding-left: 38px">${dateAsNiceString}</h5>                            
                                     <h5 style="color: #EC4D3C">${isFree}</h5>
                                 </div>
                             </div>
@@ -133,24 +133,29 @@ function displayResultsFromEventBrite(responseJson) {
 function displayResultsFromYoutube(responseJson) {
     console.log(responseJson);
 
-    for (let i = 0; i <= responseJson.items.length; i++) {
+    // for (let i = 0; i <= responseJson.items.length; i++) {
 
-        $("#js-youtube-results").append(
-            `<section class="event-card">
-                <a href="">
-                    <div class="card">
-                        <img src="${responseJson.items[i].snippet.thumbnails.high.url}">                    
-                        <div class="container">
-                            <h2>${responseJson.items[i].snippet.title}</h2>
-                            <div class="inner-container">                                 
-                                <p>${responseJson.items[i].snippet.description}</p>
-                                <h5>${responseJson.items[i].snippet.publishedAt}</h5>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </section>`);
-        }
+    //     const startDateFromAPI = responseJson.items[i].snippet.publishedAt;       
+    //     const startDate = new Date(startDateFromAPI); 
+    //     const dateAsNiceString = startDate.toLocaleString([], {weekday: 'short', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute:'2-digit'});
+
+
+    //     $("#js-youtube-results").append(
+    //         `<section class="event-card">
+    //             <a href="">
+    //                 <div class="card">
+    //                     <img src="${responseJson.items[i].snippet.thumbnails.high.url}">                    
+    //                     <div class="container">
+    //                         <h2>${responseJson.items[i].snippet.title}</h2>
+    //                         <div class="inner-container">                                 
+    //                             <p>${responseJson.items[i].snippet.description}</p>
+    //                             <h5>${dateAsNiceString}</h5>
+    //                         </div>
+    //                     </div>
+    //                 </div>
+    //             </a>
+    //         </section>`);
+    //     }
 }
 
 function getDefaultEventsFromEventBrite(miles) {
@@ -210,7 +215,7 @@ function getEventsFromEventBrite(query, miles) {
         });
 }
 
-const searchHackathonVideos = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&order=relevance&q=hackathon&type=video&videoDefinition=high&videoEmbeddable=true&key=AIzaSyD8npOvMraf7uV-1NEeGJMhs6ihtPL6_-0";
+const searchHackathonVideos = "https://www.youtube.com/embed?listType=search&list=hackathon&key=AIzaSyD8npOvMraf7uV-1NEeGJMhs6ihtPL6_-0";
 
 function getVideosFromYoutube() {
     // const options = {
