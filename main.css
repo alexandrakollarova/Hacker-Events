@@ -42,6 +42,7 @@ nav header span h1 {
     color: #EC4D3C;
     z-index: 2;
     font-size: 24px;
+    cursor: pointer;
 }
 
 .open-nav {
@@ -133,6 +134,7 @@ form {
     padding: 5px 10px;
     color: #13D1FC;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .slider {
@@ -295,6 +297,7 @@ main h4 {
 
     .headline h1 {
         font-size: 34px;
+        line-height: 40px;
         -webkit-transition: ease-in-out 2s;
         transition: ease-in-out 2s;
     }
@@ -307,6 +310,17 @@ main h4 {
 }
 
 @media screen and (min-width: 600px) {
+
+    .headline h1 {
+        font-size: 50px;
+        line-height: 55px
+    }
+
+    .headline {
+        top: 20%;
+        -webkit-transition: ease-in-out 2s;
+        transition: ease-in-out 2s;
+    }
 
     .background-image {
         width: 90%;
@@ -341,12 +355,6 @@ main h4 {
         transition: ease-in-out 2s;
     }
 
-    .headline h1 {
-        font-size: 36px;
-        -webkit-transition: ease-in-out 2s;
-        transition: ease-in-out 2s;
-    }
-
     main h4, .learn {
         font-size: 32px;
         -webkit-transition: ease-in-out 2s;
@@ -366,20 +374,16 @@ main h4 {
         width: 50%
     }
 
-    .headline h1 {
-        font-size: 42px;
-    }
-
     .headline {
         position: static;
-        text-align: left;
-        line-height: 40px;
         padding-top: 30px;
-        padding-left: 400px
+        padding-left: 55%;
+        text-align: left
     }
 
-    .hero {
-        margin-bottom: 120px
+    main h3 {
+        clear: both;
+        padding-top: 30px
     }
 
     .whats-hackathon-img {
@@ -394,7 +398,8 @@ main h4 {
 
     .whats-hackathon-desc {
         margin-left: 55%;
-        padding-bottom: 60px
+        padding-bottom: 60px;
+        margin-right: 40px
     }
 
 }
@@ -451,16 +456,12 @@ main h4 {
 
 @media screen and (min-width: 1000px) {
 
-    .headline {
-        padding-right: 100px
-    }
-
-    main h3 {
-        padding-right: 100px
-    }
-
     .learn-how {
         clear: both
+    }
+
+    .whats-hackathon-img {
+        width: 40%
     }
 
 }
@@ -468,15 +469,21 @@ main h4 {
 @media screen and (min-width: 1100px) {
 
     .background-image {
-        width: 40%;
+        width: 45%;
+        margin-left: 5%
     }
 
     .headline h1 {
-        font-size: 48px
+        font-size: 56px;
+        line-height: 58px
     }
 
     main h3 {
         font-size: 24px
+    }
+
+    .coffee-menu, .arrow-close {
+        font-size: 30px
     }
 
     form {
@@ -505,9 +512,42 @@ main h4 {
         width: 70%
     }
 
+   
     nav header h1 {
-        margin-left: 30px
+        margin-left: 30px;
     }
     
 }
+
+@media screen and (min-width: 1200px) {
+
+    .background-image {
+        width: 35%;
+        margin-left: 10%
+    }
+
+    .headline h1 {
+        font-size: 60px;
+        line-height: 65px
+    }
+
+    .headline {
+        padding-left: 50%
+    }
+
+    main h3 {
+        padding-top: 0;
+    }
+
+    form {
+        margin-top: 0
+    }
+
+    .coffee-menu, .arrow-close {
+        right: 30px;
+        top: 30px
+    }
+
+}
+
 
