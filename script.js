@@ -1,13 +1,13 @@
 "use strict"
 
-$("#hamburger-menu1").on("click", e => {
-    $("#hamburger-menu1").hide();
+$("#coffee-menu").on("click", e => {
+    $("#coffee-menu").hide();
     $("#nav").show();
 })
 
-$("#hamburger-menu2").on("click", e => {
+$("#arrow-close").on("click", e => {
     $("#nav").hide();
-    $("#hamburger-menu1").show();
+    $("#coffee-menu").show();
 })
 
 let latitude;
@@ -42,8 +42,6 @@ function geoFindMe() {
 $(geoFindMe);
 
 
-const searchNewInputURLFromEventBrite = "https://www.eventbriteapi.com/v3/events/search/?q=hackathons&expand=venue,organizer";
-
 function formatQueryParams(params) {
     const queryItems = Object.keys(params).map(key => 
         `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}
@@ -54,13 +52,12 @@ function formatQueryParams(params) {
 function displayResultsFromEventBrite(responseJson) {
     console.log(responseJson);
 
-    $("#js-search-results").empty();
+    $("#js-event-results").empty();
 
     for (let i = 0; i <= responseJson.events.length; i++) {
         
         if (responseJson.events.length === 0) {
-            console.log("here")
-            $("#js-search-results").append(
+            $("#js-event-results").append(
                 `<div style="color: white">
                     <h2>No hackathons found</h2>
                     <i style='font-size:24px' class='far'>&#xf119;</i>
@@ -76,14 +73,14 @@ function displayResultsFromEventBrite(responseJson) {
             if (responseJson.events[i].is_free) {
                 isFree = "Free";
             }  else {
-                isFree = `<i class="material-icons" style="color: #EC4D3C; padding-left: 3px">&#xe227;</i>`;
+                isFree = `<i class="material-icons" style="color: #EC4D3C; margin-top: -10px">&#xe227;</i>`;
             }
 
             let venueName;        
             if (responseJson.events[i].venue.name) {
                 venueName = responseJson.events[i].venue.name +",";
             } else {
-                venueName = ""
+                venueName = "TBA"
             }
 
             let venueAddressCity;
@@ -104,11 +101,11 @@ function displayResultsFromEventBrite(responseJson) {
             if (responseJson.events[i].logo && responseJson.events[i].logo.original && responseJson.events[i].logo.original.url) {            
                 logo = responseJson.events[i].logo.original.url;                   
             } else {
-                logo = `<img src="images/question-mark.png">`
+                logo = "images/question-mark.png";
             }
 
                         
-            $("#js-search-results").append(
+            $("#js-event-results").append(
                 `<section class="event-card">
                     <a href="${responseJson.events[i].url}">
                         <div class="card">
@@ -116,10 +113,10 @@ function displayResultsFromEventBrite(responseJson) {
                             <div class="container">
                                 <h2>${responseJson.events[i].name.text}</h2>
                                 <div class="inner-container">
-                                    <i class="material-icons" style="font-size: 26px">&#xe7f1;</i> 
+                                    <i class="material-icons" style="font-size: 28px">&#xe7f1;</i> 
                                     <h5>${venueName} ${venueAddressCity} ${venueAddressRegion}</h5>
                                     <i class='fa' style="padding-left: 3px">&#xf073;</i>                                                       
-                                    <h5>${dateAsNiceString1}</h5>                            
+                                    <h5 style="padding-left: 38px">${dateAsNiceString1}</h5>                            
                                     <h5 style="color: #EC4D3C">${isFree}</h5>
                                 </div>
                             </div>
@@ -131,6 +128,58 @@ function displayResultsFromEventBrite(responseJson) {
 }
 
 
+      
+
+function displayResultsFromYoutube(responseJson) {
+    console.log(responseJson);
+
+    // for (let i = 0; i <= responseJson.items.length; i++) {
+
+    //     // Load the IFrame Player API code asynchronously.
+    //   var tag = document.createElement('script');
+    //   tag.src = "https://www.youtube.com/player_api";
+    //   var firstScriptTag = document.getElementsByTagName('script')[0];
+    //   firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+  
+    //   // Replace the 'ytplayer' element with an <iframe> and
+    //   // YouTube player after the API code downloads.
+    //   var player;
+    //   function onYouTubePlayerAPIReady() {
+    //       player = new YT.Player('ytplayer', {
+    //       height: '360',
+    //       width: '640',
+    //       videoId: responseJson.items[i].videoId        
+    //     });
+    //   }
+        
+
+    //     $("#js-youtube-results").append(
+    //         `<iframe id="ytplayer" type="text/html" width="640" height="360"
+    //         src="https://www.youtube.com/embed?" + videoID + "autoplay=1&origin=http://example.com"
+    //         frameborder="0"></iframe>
+    //         `
+    //     )
+    // }
+
+    // for (let i = 0; i <= responseJson.items.length; i++) {
+
+    //     $("#js-youtube-results").append(
+    //         `<section class="event-card">
+    //             <a href="">
+    //                 <div class="card">                    
+    //                     <div class="container">
+    //                         <h2>${responseJson.items[i].snippet.title}</h2>
+    //                         <div class="inner-container">                                 
+    //                             <p>${responseJson.items[i].snippet.description}</p>
+    //                             <h5>${responseJson.items[i].snippet.publishedAt}</h5>
+    //                         </div>
+    //                     </div>
+    //                 </div>
+    //             </a>
+    //         </section>`);
+
+    // }
+}
 
 function getDefaultEventsFromEventBrite(miles) {
     const options = {
@@ -158,6 +207,8 @@ function getDefaultEventsFromEventBrite(miles) {
             $("#js-error-message").text(`Something went wrong: ${err.message}`);
         });
 }
+
+const searchNewInputURLFromEventBrite = "https://www.eventbriteapi.com/v3/events/search/?q=hackathons&expand=venue,organizer";
 
 function getEventsFromEventBrite(query, miles) {
     const options = {
@@ -187,6 +238,37 @@ function getEventsFromEventBrite(query, miles) {
         });
 }
 
+const searchHackathonVideos = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&order=relevance&q=hackathon&type=video&videoDefinition=high&videoEmbeddable=true&key=AIzaSyD8npOvMraf7uV-1NEeGJMhs6ihtPL6_-0";
+
+function getVideosFromYoutube() {
+    // const options = {
+    //     headers: new Headers({
+    //         Authorization: "Bearer QOAVPXW65GZI6MSN4HL4",                      
+    //     })
+    //   };
+
+    // const params = {
+    //     "location.address": query,
+    //     "location.within": miles
+    // }
+
+    // const queryString = formatQueryParams(params);
+    // const url = searchNewInputURLFromEventBrite + "&" + queryString;    
+
+    fetch(searchHackathonVideos)    
+        .then(response => {         
+            if (response.ok) {                
+                return response.json();
+            }
+            throw new Error(response.statusText);
+        })
+        .then(responseJson => displayResultsFromYoutube(responseJson))
+        .catch(err => {
+            $("#js-error-message").text(`Something went wrong: ${err.message}`);
+        });
+}
+
+getVideosFromYoutube();
 
 function watchForm() {
     var slider = document.getElementById("js-slider");
@@ -212,6 +294,10 @@ function watchForm() {
 
 $(watchForm);
 
+  
 
+
+
+    
 
 
