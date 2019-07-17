@@ -133,35 +133,32 @@ function displayResultsFromEventBrite(responseJson) {
 function displayResultsFromYoutube(responseJson) {
     console.log(responseJson);
 
-    // for (let i = 0; i <= responseJson.items.length; i++) {
+    for (let i = 0; i <= responseJson.items.length; i++) {
 
-    //     // Load the IFrame Player API code asynchronously.
-    //   var tag = document.createElement('script');
-    //   tag.src = "https://www.youtube.com/player_api";
-    //   var firstScriptTag = document.getElementsByTagName('script')[0];
-    //   firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        // Load the IFrame Player API code asynchronously.
+      var tag = document.createElement('script');
+      tag.src = "https://www.youtube.com/player_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
   
-    //   // Replace the 'ytplayer' element with an <iframe> and
-    //   // YouTube player after the API code downloads.
-    //   var player;
-    //   function onYouTubePlayerAPIReady() {
-    //       player = new YT.Player('ytplayer', {
-    //       height: '360',
-    //       width: '640',
-    //       videoId: responseJson.items[i].videoId        
-    //     });
-    //   }
-        
+      // Replace the 'ytplayer' element with an <iframe> and
+      // YouTube player after the API code downloads.
+      var player;
+      function onYouTubePlayerAPIReady() {
+          player = new YT.Player('ytplayer', {
+          height: '360',
+          width: '640',
+          videoId: responseJson.items[i].videoId        
+        });
+      }        
 
-    //     $("#js-youtube-results").append(
-    //         `<iframe id="ytplayer" type="text/html" width="640" height="360"
-    //         src="https://www.youtube.com/embed?" + videoID + "autoplay=1&origin=http://example.com"
-    //         frameborder="0"></iframe>
-    //         `
-    //     )
-    // }
-
-    // for (let i = 0; i <= responseJson.items.length; i++) {
+        $("#js-youtube-results").append(
+            `<iframe id="ytplayer" type="text/html" width="640" height="360"
+            src="https://www.youtube.com/embed?" + videoID + "autoplay=1&origin=http://example.com"
+            frameborder="0"></iframe>
+            `
+        )
+    }
 
     //     $("#js-youtube-results").append(
     //         `<section class="event-card">
@@ -177,8 +174,6 @@ function displayResultsFromYoutube(responseJson) {
     //                 </div>
     //             </a>
     //         </section>`);
-
-    // }
 }
 
 function getDefaultEventsFromEventBrite(miles) {
