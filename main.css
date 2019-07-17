@@ -9,7 +9,33 @@ body {
     box-sizing: border-box;
 }
 
-.fa, .fas {
+a {
+    text-decoration: none;
+    color: black;      
+}
+
+/* logo */
+nav header h1 {
+    color: #13D1FC;
+    margin-top: 10px;
+    margin-bottom: 0;
+    margin-left: 10px;
+    font-size: 20px;
+    font-weight: 400;
+    text-align: left
+}
+
+nav header span h1 {
+    margin-top: -5px;
+    font-weight: 700;
+}
+
+.hacker {
+    letter-spacing: 2px;
+}
+
+/* mobile nav */
+.coffee-menu, .arrow-close {
     position: absolute;
     right: 20px;
     top: 20px;
@@ -20,7 +46,6 @@ body {
 
 .open-nav {
     list-style: none;
-    text-align: left;
     width: 300px;
     height: 300px;
     position: absolute;
@@ -30,7 +55,8 @@ body {
     z-index: 1;
     background-color: #13D1FC;
     border-radius: 100%;
-    color: white
+    color: white;
+    text-align: left
 }
 
 ul li {
@@ -45,53 +71,39 @@ ul li span {
     font-weight: 400
 }
 
+/* hero-image */
 .background-image {
     width: 100%;
     opacity: 0.5;
 }
 
-nav header h1 {
-    color: #13D1FC;
-    margin-top: 10px;
-    margin-bottom: 0;
-    margin-left: 10px;
-    font-size: 20px;
-    text-align: left;
-    font-weight: 400;
-}
-
-nav header span h1 {
-    margin-top: -5px;
-    font-weight: 700;
-}
-
-.hacker {
-    letter-spacing: 2px;
-}
-
+/* headline */
 .headline {
     position: absolute;
     top: 20%;
     left: 0;
     right: 0;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
     padding: 0 25px
 }
 
-.headline h1 {
-    font-size: 26px;
-}
-
+/* sub-headline */
 main h3 {
     font-size: 16px;
-    padding: 0 15px;
+    margin: 0 15px;
     color: #6680D2;
+    text-align: center
 }
 
+/* form */
 form {
     padding-top: 30px;
     width: 360px;
     margin-left: auto;
-    margin-right: auto
+    margin-right: auto;
+    text-align: center
 }
 
 .search-input {
@@ -164,33 +176,62 @@ form {
     cursor: pointer; 
 }
 
+/* section headings */
 main h4 {
-    text-align: left; 
-    font-size: 26px;
+    font-size: 22px;
     -webkit-transition: ease-in-out 2s;
     transition: ease-in-out 2s;
-    /* color: white; */
-    padding-left: 30px;
-    padding-top: 50px;
+    color: white;
+    padding-left: 15px;
+    padding-top: 30px;
+    text-align: left
 }
 
-.background-upcoming {
+/* section background */
+.background-purple {
     background-color: #6680D2;
     margin-top: 50px;
     padding-bottom: 50px;
 }
 
-a {
-    text-decoration: none;
-    color: black;      
+/* whats-hackathon section */
+.span-heading {
+    color: #543E63;
+    padding-top: 0;
+    margin-bottom: 20px;
+    font-weight: 700;
+    word-spacing: 5px
 }
 
+.span-heading span {
+    font-style: italic;
+    font-weight: 400
+}
+
+.whats-hackathon-img {
+    width: 80%;
+    padding-top: 50px;
+}
+
+.whats-hackathon-desc {
+    margin: 0 20px;
+    color: #A1667D;
+    text-align: left
+}
+
+.learn {
+    color: white;
+    padding-top: 30px
+}
+
+
+/* search results style */
 .card {
-    text-align: left;
     background-color: white;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
-    width: 90%;
+    width: 340px;
+    height: 500px;
     -webkit-transition: ease-in-out 2s;
     transition: ease-in-out 2s;
     margin-left: auto;
@@ -199,6 +240,7 @@ a {
     color :#5A6B97;
     padding-bottom: 10px;
     border-radius: 10px;
+    text-align: left
 }
 
 .card i {
@@ -210,7 +252,7 @@ a {
 
 .card h5 {
     color: black;
-    padding-top: 5px;
+    padding: 5px;
 }
   
 .card:hover {
@@ -228,10 +270,11 @@ a {
 .card img {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    width: 100%;
-    height: auto;
+    height: 200px;
+    width: 100%
 }
 
+/* responsive */
 @media screen and (min-width: 450px) {
 
     .headline {
@@ -239,16 +282,16 @@ a {
         -webkit-transition: ease-in-out 2s;
         transition: ease-in-out 2s;
     }
-
-    .headline h1 {
-        font-size: 30px;
-        -webkit-transition: ease-in-out 2s;
-        transition: ease-in-out 2s;
-    }
-
 }
 
 @media screen and (min-width: 550px) {
+
+    main h4, .learn {
+        padding-top: 50px;
+        font-size: 26px;
+        -webkit-transition: ease-in-out 2s;
+        transition: ease-in-out 2s;
+    }
 
     .headline h1 {
         font-size: 34px;
@@ -261,17 +304,14 @@ a {
         -webkit-transition: ease-in-out 2s;
         transition: ease-in-out 2s;
     }
-
-    
-    .card {
-        width: 70%;
-    }
 }
 
 @media screen and (min-width: 600px) {
 
     .background-image {
-        width: 80%;
+        width: 90%;
+        -webkit-transition: ease-in-out 2s;
+        transition: ease-in-out 2s;
     }
 
     form {
@@ -280,26 +320,42 @@ a {
         transition: ease-in-out 2s;
     }
 
-    .card {
-        width: 60%;
+    .slider {
+        width: 80%;
+        -webkit-transition: ease-in-out 2s;
+        transition: ease-in-out 2s;
     }
- 
+
+    .whats-hackathon-img {
+        width: 80%;
+        -webkit-transition: ease-in-out 2s;
+        transition: ease-in-out 2s;
+    }
 }
 
 @media screen and (min-width: 700px) {
 
-    .headline {
-        top: 30%
+    .background-image {
+        width: 80%;
+        -webkit-transition: ease-in-out 2s;
+        transition: ease-in-out 2s;
     }
 
-    main h4 {
-        font-size: 32px
+    .headline h1 {
+        font-size: 36px;
+        -webkit-transition: ease-in-out 2s;
+        transition: ease-in-out 2s;
     }
 
-    .card {
-        width: 50%;
+    main h4, .learn {
+        font-size: 32px;
+        -webkit-transition: ease-in-out 2s;
+        transition: ease-in-out 2s;
+    } 
+
+    .whats-hackathon-desc {
+        margin: 0 30px
     }
-  
 }
 
 @media screen and (min-width: 750px) {
@@ -318,39 +374,79 @@ a {
         position: static;
         text-align: left;
         line-height: 40px;
-        padding-top: 30px
+        padding-top: 30px;
+        padding-left: 400px
     }
 
     .hero {
         margin-bottom: 120px
     }
+
+    .whats-hackathon-img {
+        width: 50%;
+        float: left;
+        margin-top: -50px
+    }
+
+    .span-heading {
+        padding-top: 50px
+    }
+
+    .whats-hackathon-desc {
+        margin-left: 55%;
+        padding-bottom: 60px
+    }
+
 }
 
 @media screen and (min-width: 800px) {
 
     .card {
-        width: 300px;
-        height: 500px;
+        width: 320px
     }
 
-    .search-results {
+    .event-results {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-evenly
     }
 
     .headline {
-        padding-right: 50px
-    }
-
-    .hero {
-        margin-bottom: 0
+        padding-top: 60px
     }
 
     main h3 {
-        text-align: left;
-        padding-right: 50px;
+        padding-top: 20px;
     }
+
+    main h4 {
+        margin: 0 30px
+    }
+
+    .whats-hackathon {
+        margin-top: 50px
+    }
+}
+
+@media screen and (min-width: 900px) {
+
+    form {
+        width: 600px;
+        margin-top: 20px
+    }
+
+    main h4 {
+        font-size: 36px
+    }
+
+    .whats-hackathon-desc {
+        font-size: 18px
+    }
+
+    .whats-hackathon {
+        margin-bottom: 100px
+    }
+
 }
 
 @media screen and (min-width: 1000px) {
@@ -361,6 +457,10 @@ a {
 
     main h3 {
         padding-right: 100px
+    }
+
+    .learn-how {
+        clear: both
     }
 
 }
