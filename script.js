@@ -136,13 +136,12 @@ function displayResultsFromEventBrite(responseJson) {
 
 
       
-
 function displayResultsFromYoutube(responseJson) {
     console.log(responseJson);
 
      var tag = document.createElement('script');
 
-     tag.src = "https://www.youtube.com/iframe_api";
+     tag.src = "https://www.youtube.com/embed/?listType=search&list=hackathon";
      var firstScriptTag = document.getElementsByTagName('script')[0];
      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
@@ -169,9 +168,7 @@ function displayResultsFromYoutube(responseJson) {
     //             suggestedQuality: 'high'
     //         })
     //     }
-     }
-
-    
+     }    
 
     // 4. The API will call this function when the video player is ready.
      function onPlayerReady(event) {
