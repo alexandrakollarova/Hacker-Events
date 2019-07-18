@@ -29,7 +29,14 @@ function geoFindMe() {
     }
 
     function error() {
-        console.log('Unable to retrieve your location')
+        console.log('Unable to retrieve your location');
+
+        $("#js-error-message").append(
+            `<div style="color: white">
+            <i style='font-size:24px' class='far'>&#xf119;</i>
+            <h2>Sorry! We're unable to retrieve your location. Please, type in your location above and hit search.</h2>
+            </div>`
+        );
     }
 
     if (!navigator.geolocation) {
@@ -59,8 +66,8 @@ function displayResultsFromEventBrite(responseJson) {
         if (responseJson.events.length === 0) {
             $("#js-event-results").append(
                 `<div style="color: white">
-                    <h2>No hackathons found</h2>
                     <i style='font-size:24px' class='far'>&#xf119;</i>
+                    <h2>No hackathons found in this search.</h2>
                 </div>`
             );
         } else {
@@ -107,7 +114,7 @@ function displayResultsFromEventBrite(responseJson) {
                         
             $("#js-event-results").append(
                 `<section class="event-card">
-                    <a href="${responseJson.events[i].url}">
+                    <a href="${responseJson.events[i].url}" target="_blank">
                         <div class="card">
                             <img src="${logo}" id="js-logo-url">
                             <div class="container">
@@ -133,6 +140,58 @@ function displayResultsFromEventBrite(responseJson) {
 function displayResultsFromYoutube(responseJson) {
     console.log(responseJson);
 
+     var tag = document.createElement('script');
+
+     tag.src = "https://www.youtube.com/iframe_api";
+     var firstScriptTag = document.getElementsByTagName('script')[0];
+     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+     // 3. This function creates an <iframe> (and YouTube player)
+     //    after the API code downloads.
+     var player;
+     function onYouTubeIframeAPIReady() {
+       player = new YT.Player('player', {
+         height: '390',
+         width: '640',
+         events: {
+           'onReady': onPlayerReady,
+           'onStateChange': onPlayerStateChange
+         }
+       });
+
+    //    for (let i = 0; i <= responseJson.items.length; i++) {
+
+    //         player.loadPlaylist({
+    //             list: responseJson.items[i].id.videoId,
+    //             listType: 'search',
+    //             index: 0,
+    //             startSeconds: 0,
+    //             suggestedQuality: 'high'
+    //         })
+    //     }
+     }
+
+    
+
+    // 4. The API will call this function when the video player is ready.
+     function onPlayerReady(event) {
+       event.target.playVideo();
+     }
+
+     // 5. The API calls this function when the player's state changes.
+     //    The function indicates that when playing a video (state=1),
+     //    the player should play for six seconds and then stop.
+     var done = false;
+     function onPlayerStateChange(event) {
+       if (event.data == YT.PlayerState.PLAYING && !done) {
+         setTimeout(stopVideo, 6000);
+         done = true;
+       }
+     }
+     function stopVideo() {
+       player.stopVideo();
+     }
+
     // for (let i = 0; i <= responseJson.items.length; i++) {
 
     //     const startDateFromAPI = responseJson.items[i].snippet.publishedAt;       
@@ -142,7 +201,7 @@ function displayResultsFromYoutube(responseJson) {
 
     //     $("#js-youtube-results").append(
     //         `<section class="event-card">
-    //             <a href="">
+    //             <a href="" target="_blank">
     //                 <div class="card">
     //                     <img src="${responseJson.items[i].snippet.thumbnails.high.url}">                    
     //                     <div class="container">
@@ -215,7 +274,7 @@ function getEventsFromEventBrite(query, miles) {
         });
 }
 
-const searchHackathonVideos = "https://www.youtube.com/embed?listType=search&list=hackathon&key=AIzaSyD8npOvMraf7uV-1NEeGJMhs6ihtPL6_-0";
+const searchHackathonVideos = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&order=relevance&q=hackathon&type=video&videoDefinition=high&videoEmbeddable=true&key=AIzaSyD8npOvMraf7uV-1NEeGJMhs6ihtPL6_-0";
 
 function getVideosFromYoutube() {
     // const options = {
@@ -241,7 +300,7 @@ function getVideosFromYoutube() {
         })
         .then(responseJson => displayResultsFromYoutube(responseJson))
         .catch(err => {
-            $("#js-error-message").text(`Something went wrong: ${err.message}`);
+            $("#js-youtube-error-message").text(`Something went wrong: ${err.message}`);
         });
 }
 
