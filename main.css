@@ -64,7 +64,8 @@ ul li {
     font-size: 18px;
     line-height: 40px;
     font-weight: 700;
-    word-spacing: 5px
+    word-spacing: 5px;
+    cursor: pointer;
 }
 
 ul li span {
