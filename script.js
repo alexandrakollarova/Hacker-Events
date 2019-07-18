@@ -143,35 +143,41 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 // 3. This function creates an <iframe> (and YouTube player)
 //    after the API code downloads.
 var player;
-function onYouTubeIframeAPIReady(responseJson) {
 
-    for (let i = 0; i <= responseJson.items.length; i++) {
-        
-        player = new YT.Player('player1', {
-            height: '390',
-            width: '640',
-            videoId: responseJson.items[0].id.videoId,
-            playerVars: {
-                autoplay: 0,
-            },
-            events: {
-                'onReady': onPlayerReady,
-                'onStateChange': onPlayerStateChange
-            }
-        });
+function displayResultsFromYoutube(responseJson) {
 
-        player = new YT.Player('player2', {
-            height: '390',
-            width: '640',
-            videoId: responseJson.items[1].id.videoId,            
-            playerVars: {
-                autoplay: 0,
-            },
-            events: {
-                'onReady': onPlayerReady,
-                'onStateChange': onPlayerStateChange
-            }
-        });
+    function onYouTubeIframeAPIReady() {
+    
+        console.log(responseJson);
+
+        for (let i = 0; i <= responseJson.items.length; i++) {
+            
+            player = new YT.Player('player1', {
+                height: '390',
+                width: '640',
+                videoId: responseJson.items[0].id.videoId,
+                playerVars: {
+                    autoplay: 0,
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+
+            player = new YT.Player('player2', {
+                height: '390',
+                width: '640',
+                videoId: responseJson.items[1].id.videoId,     
+                playerVars: {
+                    autoplay: 0,
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
     }
 }
 
@@ -308,7 +314,7 @@ function getVideosFromYoutube() {
             }
             throw new Error(response.statusText);
         })
-        .then(responseJson => onYouTubeIframeAPIReady(responseJson))
+        .then(responseJson => displayResultsFromYoutube(responseJson))
         .catch(err => {
             $("#js-youtube-error-message").text(`Something went wrong: ${err.message}`);
         });
