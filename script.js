@@ -146,15 +146,16 @@ function displayResultsFromYoutube(responseJson) {
 
     // 3. This function creates an <iframe> (and YouTube player)
     //    after the API code downloads.
-    var player;
+    var player1;
+    var player2;
 
-    function onYouTubeIframeAPIReady() {
+    window.onYouTubeIframeAPIReady = function () {
     
         console.log(responseJson);
 
         for (let i = 0; i <= responseJson.items.length; i++) {
             
-            player = new YT.Player('player1', {
+            player1 = new YT.Player('player1', {
                 height: '390',
                 width: '640',
                 videoId: responseJson.items[0].id.videoId,
@@ -167,7 +168,7 @@ function displayResultsFromYoutube(responseJson) {
                 }
             });
 
-            player = new YT.Player('player2', {
+            player2 = new YT.Player('player2', {
                 height: '390',
                 width: '640',
                 videoId: responseJson.items[1].id.videoId,     
@@ -199,7 +200,8 @@ function displayResultsFromYoutube(responseJson) {
     }
 
     function stopVideo() {
-        player.stopVideo();
+        player1.stopVideo();
+        player2.stopVideo();
     }
 }
 
