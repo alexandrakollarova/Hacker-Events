@@ -30,8 +30,8 @@
             <i class='fas arrow-close' id="arrow-close">&#xf061;</i>
 
             <ul class="open-nav">
-                <li id="whats-hackathon"><span>What's</span> HACKATHON</li>
-                <li id="watch-hackathon"><span>Learn</span> HOW</li>
+                <li id="whats-hackathon-scroll"><span>What's</span> HACKATHON</li>
+                <li id="learn-how"><span>Learn</span> HOW</li>
             </ul>
         </div>                     
     </nav>
@@ -62,11 +62,12 @@
 
         <section class="background-purple upcoming">
             <h4>Upcoming</h4>
+            <div id="js-error-message"></div>
 
             <section class="event-results" id="js-event-results"></section>   
         </section>
 
-        <section class="whats-hackathon">
+        <section class="whats-hackathon" id="whats-hackathon">
             <img src="images/whats-hackathon.png" alt="whats-hackathon" class="whats-hackathon-img">
 
             <h4 class="span-heading"><span>What's</span> HACKATHON</h4>
@@ -76,8 +77,11 @@
 
         <section class="background-purple learn-how">
             <h4 class="span-heading learn"><span>Learn</span> HOW</h4>
+            <div id="js-youtube-error-message"></div>
 
             <section class="youtube-results" id="js-youtube-results"></section>   
+
+            <iframe id="existing-iframe-example" width="640" height="360" src="https://www.youtube.com/embed?list=hackathon&listType=search&enablejsapi=1" frameborder="0"></iframe>
         </section>
 
     </main>
