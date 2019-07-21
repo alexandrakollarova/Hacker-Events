@@ -163,12 +163,12 @@ function displayResultsFromYoutube(responseJson) {
     var firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-    let player1;
-    let player2;
-    let player3;
-    let player4;
-    let player5;
-    let player6;
+    // let player1;
+    // let player2;
+    // let player3;
+    // let player4;
+    // let player5;
+    // let player6;
 
     window.onYouTubeIframeAPIReady = function () {
     
@@ -176,59 +176,56 @@ function displayResultsFromYoutube(responseJson) {
 
         for (let i = 0; i <= responseJson.items.length; i++) {
             
-            player1 = new YT.Player('player1', {
+            new YT.Player(`player1${i}`, {
                 height: '210',
                 width: '375',
-                videoId: responseJson.items[0].id.videoId,
-                playerVars : {
-                    origin: window.location.origin,
-                }
+                videoId: responseJson.items[i].id.videoId,
             });
+            
+            // player2 = new YT.Player('player2', {
+            //     height: '210',
+            //     width: '375',
+            //     videoId: responseJson.items[1].id.videoId,  
+            //     playerVars : {
+            //         origin: window.location.origin,
+            //     }
+            // });
 
-            player2 = new YT.Player('player2', {
-                height: '210',
-                width: '375',
-                videoId: responseJson.items[1].id.videoId,  
-                playerVars : {
-                    origin: window.location.origin,
-                }
-            });
+            // player3 = new YT.Player('player3', {
+            //     height: '210',
+            //     width: '375',
+            //     videoId: responseJson.items[2].id.videoId,  
+            //     playerVars : {
+            //         origin: window.location.origin,
+            //     }
+            // });
 
-            player3 = new YT.Player('player3', {
-                height: '210',
-                width: '375',
-                videoId: responseJson.items[2].id.videoId,  
-                playerVars : {
-                    origin: window.location.origin,
-                }
-            });
+            // player4 = new YT.Player('player4', {
+            //     height: '210',
+            //     width: '375',
+            //     videoId: responseJson.items[3].id.videoId,  
+            //     playerVars : {
+            //         origin: window.location.origin, 
+            //     }
+            // });
 
-            player4 = new YT.Player('player4', {
-                height: '210',
-                width: '375',
-                videoId: responseJson.items[3].id.videoId,  
-                playerVars : {
-                    origin: window.location.origin, 
-                }
-            });
+            // player5 = new YT.Player('player5', {
+            //     height: '210',
+            //     width: '375',
+            //     videoId: responseJson.items[4].id.videoId,  
+            //     playerVars : {
+            //         origin: window.location.origin, 
+            //     }
+            // });
 
-            player5 = new YT.Player('player5', {
-                height: '210',
-                width: '375',
-                videoId: responseJson.items[4].id.videoId,  
-                playerVars : {
-                    origin: window.location.origin, 
-                }
-            });
-
-            player6 = new YT.Player('player6', {
-                height: '210',
-                width: '375',
-                videoId: responseJson.items[5].id.videoId,  
-                playerVars : {
-                    origin: window.location.origin,
-                }
-            });
+            // player6 = new YT.Player('player6', {
+            //     height: '210',
+            //     width: '375',
+            //     videoId: responseJson.items[5].id.videoId,  
+            //     playerVars : {
+            //         origin: window.location.origin,
+            //     }
+            // });
            
         }
     }
