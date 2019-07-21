@@ -35,7 +35,7 @@ function geoFindMe() {
         latitude  = position.coords.latitude.toFixed(6).toString();
         longitude = position.coords.longitude.toFixed(6).toString(); 
        
-        searchDefaultURLFromEventBrite = "https://www.eventbriteapi.com/v3/events/search/?q=hackathons&expand=venue,organizer&location.latitude=" + latitude + "&location.longitude=" + longitude;
+        searchDefaultURLFromEventBrite = "https://cors-anywhere.herokuapp.com/https://www.eventbriteapi.com/v3/events/search/?q=hackathons&expand=venue,organizer&location.latitude=" + latitude + "&location.longitude=" + longitude;
     }
 
     function error() {
@@ -71,7 +71,7 @@ function displayResultsFromEventBrite(responseJson) {
 
     $("#js-event-results").empty();
 
-    for (let i = 0; i < responseJson.events.length; i++) {
+    for (let i = 0; i <= responseJson.events.length; i++) {
         
         if (responseJson.events.length === 0) {
             $("#js-event-results").append(
@@ -159,16 +159,9 @@ function displayResultsFromYoutube(responseJson) {
 
     let tag = document.createElement('script');
 
-    tag.src = "https://www.youtube.com/iframe_api";
+    tag.src = "https://cors-anywhere.herokuapp.com/https://www.youtube.com/iframe_api";
     var firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-    // let player1;
-    // let player2;
-    // let player3;
-    // let player4;
-    // let player5;
-    // let player6;
 
     window.onYouTubeIframeAPIReady = function () {
     
@@ -176,58 +169,33 @@ function displayResultsFromYoutube(responseJson) {
 
         for (let i = 0; i < responseJson.items.length; i++) {
             
-            new YT.Player(`player1${i}`, {
+            new YT.Player(`player${i}`, {
                 height: '210',
                 width: '375',
                 videoId: responseJson.items[i].id.videoId,
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
             });
-            
-            // player2 = new YT.Player('player2', {
-            //     height: '210',
-            //     width: '375',
-            //     videoId: responseJson.items[1].id.videoId,  
-            //     playerVars : {
-            //         origin: window.location.origin,
-            //     }
-            // });
-
-            // player3 = new YT.Player('player3', {
-            //     height: '210',
-            //     width: '375',
-            //     videoId: responseJson.items[2].id.videoId,  
-            //     playerVars : {
-            //         origin: window.location.origin,
-            //     }
-            // });
-
-            // player4 = new YT.Player('player4', {
-            //     height: '210',
-            //     width: '375',
-            //     videoId: responseJson.items[3].id.videoId,  
-            //     playerVars : {
-            //         origin: window.location.origin, 
-            //     }
-            // });
-
-            // player5 = new YT.Player('player5', {
-            //     height: '210',
-            //     width: '375',
-            //     videoId: responseJson.items[4].id.videoId,  
-            //     playerVars : {
-            //         origin: window.location.origin, 
-            //     }
-            // });
-
-            // player6 = new YT.Player('player6', {
-            //     height: '210',
-            //     width: '375',
-            //     videoId: responseJson.items[5].id.videoId,  
-            //     playerVars : {
-            //         origin: window.location.origin,
-            //     }
-            // });
            
         }
+    }
+
+    function onPlayerReady(event) {
+        event.target.playVideo();
+    }
+
+    var done = false;
+    function onPlayerStateChange(event) {
+        if (event.data == YT.PlayerState.PLAYING && !done) {
+          setTimeout(stopVideo, 6000);
+          done = true;
+        }
+    }
+
+    function stopVideo() {
+        player.stopVideo();
     }
 }
 
@@ -258,7 +226,7 @@ function getDefaultEventsFromEventBrite(miles) {
         });
 }
 
-const searchNewInputURLFromEventBrite = "https://www.eventbriteapi.com/v3/events/search/?q=hackathons&expand=venue,organizer";
+const searchNewInputURLFromEventBrite = "https://cors-anywhere.herokuapp.com/https://www.eventbriteapi.com/v3/events/search/?q=hackathons&expand=venue,organizer";
 
 function getEventsFromEventBrite(query, miles) {
     const options = {
@@ -288,7 +256,7 @@ function getEventsFromEventBrite(query, miles) {
         });
 }
 
-const searchHackathonVideos = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=6&order=relevance&q=hackathon&type=video&videoDefinition=high&videoEmbeddable=true&key=AIzaSyD8npOvMraf7uV-1NEeGJMhs6ihtPL6_-0";
+const searchHackathonVideos = "https://cors-anywhere.herokuapp.com/https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=6&order=relevance&q=hackathon&type=video&videoDefinition=high&videoEmbeddable=true&key=AIzaSyD8npOvMraf7uV-1NEeGJMhs6ihtPL6_-0";
 
 function getVideosFromYoutube() {
     
