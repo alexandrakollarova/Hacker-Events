@@ -71,7 +71,7 @@ function displayResultsFromEventBrite(responseJson) {
 
     $("#js-event-results").empty();
 
-    for (let i = 0; i <= responseJson.events.length; i++) {
+    for (let i = 0; i < responseJson.events.length; i++) {
         
         if (responseJson.events.length === 0) {
             $("#js-event-results").append(
@@ -174,7 +174,7 @@ function displayResultsFromYoutube(responseJson) {
     
         console.log(responseJson);
 
-        for (let i = 0; i <= responseJson.items.length; i++) {
+        for (let i = 0; i < responseJson.items.length; i++) {
             
             new YT.Player(`player1${i}`, {
                 height: '210',
