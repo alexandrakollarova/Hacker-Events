@@ -29,10 +29,10 @@
         <div id="nav" class="nav" hidden>
             <i class='fas arrow-close' id="arrow-close">&#xf061;</i>
 
-            <ul class="open-nav">
-                <li id="whats-hackathon-scroll"><span>What's</span> HACKATHON</li>
-                <li id="learn-how"><span>Learn</span> HOW</li>
-            </ul>
+            <div class="open-nav"> 
+                <button onclick="whatsHackathonFunction()" id="whats-hackathon-scroll"><span>What's</span> HACKATHON</button>
+                <button onclick="learnHowFunction()" id="learn-how">Get Inspired</button>
+            </div>
         </div>                     
     </nav>
 
@@ -76,19 +76,23 @@
         </section>
 
         <section class="background-purple learn-how">
-            <h4 class="span-heading learn"><span>Learn</span> HOW</h4>
+            <h4 class="span-heading learn">Get Inspired</h4>
             <div id="js-youtube-error-message"></div>
 
             <section class="youtube-results" id="js-youtube-results"></section>   
 
-            <div id="player1"></div>
-            <div id="player2"></div>
-
+            <div class="players">
+                <div class="player" id="player1"></div>
+                <div class="player" id="player2"></div>
+                <div class="player" id="player3"></div>
+                <div class="player" id="player4"></div>
+                <div class="player" id="player5"></div>
+                <div class="player" id="player6"></div>
+            </div>
         </section>
-
     </main>
 
-    <footer></footer>
+    <footer>2019 Copyright</footer>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="script.js"></script>
