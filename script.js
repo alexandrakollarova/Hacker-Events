@@ -10,6 +10,16 @@ $("#arrow-close").on("click", e => {
     $("#coffee-menu").show();
 })
 
+function whatsHackathonFunction() {
+    var elmnt = document.getElementById("whats-hackathon");
+    elmnt.scrollIntoView();
+}
+
+function learnHowFunction() {
+    var elmnt = document.getElementById("js-youtube-results");
+    elmnt.scrollIntoView();
+}
+
 let latitude;
 let longitude;
 let searchDefaultURLFromEventBrite;
@@ -72,6 +82,15 @@ function displayResultsFromEventBrite(responseJson) {
             );
         } else {
 
+            let numChars = responseJson.events[i].name.text.length; 
+            let title = `<h2>${responseJson.events[i].name.text}</h2>`;
+            if (numChars <= 60) {
+                title = `<h2 style="font-size: 1.2em">${responseJson.events[i].name.text}</h2>`
+            }       
+            else if (numChars >= 61) {
+                title = `<h2 style="font-size: 0.9em">${responseJson.events[i].name.text}</h2>`
+            }
+            
             const startDateFromAPI = responseJson.events[i].start.local;       
             const startDate = new Date(startDateFromAPI); 
             const dateAsNiceString = startDate.toLocaleString([], {weekday: 'short', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute:'2-digit'});
@@ -85,21 +104,21 @@ function displayResultsFromEventBrite(responseJson) {
 
             let venueName;        
             if (responseJson.events[i].venue.name) {
-                venueName = responseJson.events[i].venue.name +",";
+                venueName = responseJson.events[i].venue.name;
             } else {
                 venueName = "TBA"
             }
 
             let venueAddressCity;
             if (responseJson.events[i].venue.address.city) {
-                venueAddressCity = responseJson.events[i].venue.address.city +",";
+                venueAddressCity = ", " + responseJson.events[i].venue.address.city;
             } else {
                 venueAddressCity = ""
             }
 
             let venueAddressRegion;
             if (responseJson.events[i].venue.address.region) {
-                venueAddressRegion = responseJson.events[i].venue.address.region;
+                venueAddressRegion =  ", " + responseJson.events[i].venue.address.region;
             } else {            
                 venueAddressRegion = ""
             }
@@ -118,10 +137,10 @@ function displayResultsFromEventBrite(responseJson) {
                         <div class="card">
                             <img src="${logo}" id="js-logo-url">
                             <div class="container">
-                                <h2>${responseJson.events[i].name.text}</h2>
+                                ${title}
                                 <div class="inner-container">
                                     <i class="material-icons" style="font-size: 28px">&#xe7f1;</i> 
-                                    <h5>${venueName} ${venueAddressCity} ${venueAddressRegion}</h5>
+                                    <h5>${venueName}${venueAddressCity}${venueAddressRegion}</h5>
                                     <i class='fa' style="padding-left: 3px">&#xf073;</i>                                                       
                                     <h5 style="padding-left: 38px">${dateAsNiceString}</h5>                            
                                     <h5 style="color: #EC4D3C">${isFree}</h5>
@@ -138,16 +157,18 @@ function displayResultsFromEventBrite(responseJson) {
 
 function displayResultsFromYoutube(responseJson) {
 
-    var tag = document.createElement('script');
+    let tag = document.createElement('script');
 
     tag.src = "https://www.youtube.com/iframe_api";
     var firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-    // 3. This function creates an <iframe> (and YouTube player)
-    //    after the API code downloads.
-    var player1;
-    var player2;
+    let player1;
+    let player2;
+    let player3;
+    let player4;
+    let player5;
+    let player6;
 
     window.onYouTubeIframeAPIReady = function () {
     
@@ -156,81 +177,62 @@ function displayResultsFromYoutube(responseJson) {
         for (let i = 0; i <= responseJson.items.length; i++) {
             
             player1 = new YT.Player('player1', {
-                height: '390',
-                width: '640',
+                height: '210',
+                width: '375',
                 videoId: responseJson.items[0].id.videoId,
-                playerVars: {
-                    autoplay: 0,
-                },
-                events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
+                playerVars : {
+                    origin: window.location.origin,
                 }
             });
 
             player2 = new YT.Player('player2', {
-                height: '390',
-                width: '640',
-                videoId: responseJson.items[1].id.videoId,     
-                playerVars: {
-                    autoplay: 0,
-                },
-                events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
+                height: '210',
+                width: '375',
+                videoId: responseJson.items[1].id.videoId,  
+                playerVars : {
+                    origin: window.location.origin,
                 }
             });
+
+            player3 = new YT.Player('player3', {
+                height: '210',
+                width: '375',
+                videoId: responseJson.items[2].id.videoId,  
+                playerVars : {
+                    origin: window.location.origin,
+                }
+            });
+
+            player4 = new YT.Player('player4', {
+                height: '210',
+                width: '375',
+                videoId: responseJson.items[3].id.videoId,  
+                playerVars : {
+                    origin: window.location.origin, 
+                }
+            });
+
+            player5 = new YT.Player('player5', {
+                height: '210',
+                width: '375',
+                videoId: responseJson.items[4].id.videoId,  
+                playerVars : {
+                    origin: window.location.origin, 
+                }
+            });
+
+            player6 = new YT.Player('player6', {
+                height: '210',
+                width: '375',
+                videoId: responseJson.items[5].id.videoId,  
+                playerVars : {
+                    origin: window.location.origin,
+                }
+            });
+           
         }
-    }
-
-    // 4. The API will call this function when the video player is ready.
-    function onPlayerReady(event) {
-        event.target.playVideo();
-    }
-
-    // 5. The API calls this function when the player's state changes.
-    //    The function indicates that when playing a video (state=1),
-    //    the player should play for six seconds and then stop.
-    var done = false;
-    function onPlayerStateChange(event) {
-        if (event.data == YT.PlayerState.PLAYING && !done) {
-            setTimeout(stopVideo, 6000);
-            done = true;
-        }
-    }
-
-    function stopVideo() {
-        player1.stopVideo();
-        player2.stopVideo();
     }
 }
-
-
-
-    // for (let i = 0; i <= responseJson.items.length; i++) {
-
-    //     const startDateFromAPI = responseJson.items[i].snippet.publishedAt;       
-    //     const startDate = new Date(startDateFromAPI); 
-    //     const dateAsNiceString = startDate.toLocaleString([], {weekday: 'short', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute:'2-digit'});
-
-
-    //     $("#js-youtube-results").append(
-    //         `<section class="event-card">
-    //             <a href="" target="_blank">
-    //                 <div class="card">
-    //                     <img src="${responseJson.items[i].snippet.thumbnails.high.url}">                    
-    //                     <div class="container">
-    //                         <h2>${responseJson.items[i].snippet.title}</h2>
-    //                         <div class="inner-container">                                 
-    //                             <p>${responseJson.items[i].snippet.description}</p>
-    //                             <h5>${dateAsNiceString}</h5>
-    //                         </div>
-    //                     </div>
-    //                 </div>
-    //             </a>
-    //         </section>`);
-    //     }
-
 
 function getDefaultEventsFromEventBrite(miles) {
     const options = {
@@ -255,7 +257,7 @@ function getDefaultEventsFromEventBrite(miles) {
         })
         .then(responseJson => displayResultsFromEventBrite(responseJson))
         .catch(err => {
-            $("#js-error-message").text(`Something went wrong: ${err.message}`);
+            console.log(err.message);
         });
 }
 
@@ -285,27 +287,14 @@ function getEventsFromEventBrite(query, miles) {
         })
         .then(responseJson => displayResultsFromEventBrite(responseJson))
         .catch(err => {
-            $("#js-error-message").text(`Something went wrong: ${err.message}`);
+            console.log(err.message);
         });
 }
 
-const searchHackathonVideos = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&order=relevance&q=hackathon&type=video&videoDefinition=high&videoEmbeddable=true&key=AIzaSyD8npOvMraf7uV-1NEeGJMhs6ihtPL6_-0";
+const searchHackathonVideos = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=6&order=relevance&q=hackathon&type=video&videoDefinition=high&videoEmbeddable=true&key=AIzaSyD8npOvMraf7uV-1NEeGJMhs6ihtPL6_-0";
 
 function getVideosFromYoutube() {
-    // const options = {
-    //     headers: new Headers({
-    //         Authorization: "Bearer QOAVPXW65GZI6MSN4HL4",                      
-    //     })
-    //   };
-
-    // const params = {
-    //     "location.address": query,
-    //     "location.within": miles
-    // }
-
-    // const queryString = formatQueryParams(params);
-    // const url = searchNewInputURLFromEventBrite + "&" + queryString;    
-
+    
     fetch(searchHackathonVideos)    
         .then(response => {         
             if (response.ok) {                
