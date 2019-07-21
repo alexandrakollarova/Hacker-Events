@@ -46,30 +46,34 @@ nav header span h1 {
 }
 
 .open-nav {
-    list-style: none;
-    width: 300px;
-    height: 300px;
+    width: 280px;
+    height: 280px;
     position: absolute;
-    top: -60px;
-    right: -60px;
-    padding-top: 130px;
+    top: 0;
+    right: 0;
+    padding-top: 80px;
     z-index: 1;
     background-color: #13D1FC;
-    border-radius: 100%;
+    border-bottom-left-radius: 100%;
     color: white;
     text-align: left
 }
 
-ul li {
+.open-nav button {
+    border: none;
+    background: none;
+	color: inherit;
+	font: inherit;
+	outline: inherit;
     font-size: 18px;
     line-height: 40px;
     font-weight: 700;
     word-spacing: 5px;
     cursor: pointer;
+    padding-left: 80px
 }
 
-ul li span {
-    font-style: italic;
+.open-nav button span {
     font-weight: 400
 }
 
@@ -207,7 +211,6 @@ main h4 {
 }
 
 .span-heading span {
-    font-style: italic;
     font-weight: 400
 }
 
@@ -243,7 +246,8 @@ main h4 {
     color :#5A6B97;
     padding-bottom: 10px;
     border-radius: 10px;
-    text-align: left
+    text-align: left;
+    margin-top: 50px
 }
 
 .card i {
@@ -271,10 +275,20 @@ main h4 {
 }
 
 .card img {
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
     height: 200px;
-    width: 100%
+    max-width: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+}
+
+/* footer */
+footer {
+    color: white;
+    background-color: #6680D2;
+    padding: 5px
 }
 
 /* responsive */
@@ -284,6 +298,17 @@ main h4 {
         top: 25%;
         -webkit-transition: ease-in-out 2s;
         transition: ease-in-out 2s;
+    }
+
+    .player {
+        margin: 20px;
+    }
+
+    .players {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: center
     }
 }
 
@@ -398,7 +423,6 @@ main h4 {
     }
 
     .whats-hackathon-desc {
-        margin-left: 55%;
         padding-bottom: 60px;
         margin-right: 40px
     }
@@ -446,7 +470,8 @@ main h4 {
     }
 
     .whats-hackathon-desc {
-        font-size: 18px
+        font-size: 18px;
+        padding: 0 200px
     }
 
     .whats-hackathon {
@@ -462,7 +487,13 @@ main h4 {
     }
 
     .whats-hackathon-img {
-        width: 40%
+        width: 40%;
+        padding-bottom: 50px
+    }
+
+    .player {
+        width: 460px;
+        height: 258px;
     }
 
 }
@@ -547,6 +578,19 @@ main h4 {
     .coffee-menu, .arrow-close {
         right: 30px;
         top: 30px
+    }  
+
+}
+
+@media screen and (min-width: 1300px) {
+
+    .player {
+        width: 680px;
+        height: 382px;
+    }
+
+    .whats-hackathon-img {
+        width: 30%
     }
 
 }
