@@ -58,10 +58,10 @@ function geoFindMe() {
     function error() {
         console.log('Unable to retrieve your location');
 
-        $("#js-error-message").append(
-            `<div style="color: white">
+        $("#js-unabled-location").append(
+            `<div>
             <i style='font-size:24px' class='far'>&#xf119;</i>
-            <h2>Sorry! We're unable to retrieve your location. Please, type in your location above and hit search.</h2>
+            <h5>Sorry! We're unable to retrieve your location. Please, type in your location above and hit search.</h5>
             </div>`
         );
     }
@@ -97,6 +97,7 @@ function displayResultsFromEventBrite(responseJson) {
                     <h2>No hackathons found in this search.</h2>
                 </div>`
             );
+            $("#js-event-results").css("padding", "20px");
         } else {
             let numChars = responseJson.events[i].name.text.length; 
             let title = `<h2>${responseJson.events[i].name.text}</h2>`;
@@ -178,7 +179,7 @@ function displayResultsFromYoutube(responseJson) {
 
     let tag = document.createElement('script');
 
-    tag.src = "https://cors-anywhere.herokuapp.com/https://www.youtube.com/iframe_api";
+    tag.src = "https://www.youtube.com/iframe_api";
     var firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
@@ -191,6 +192,7 @@ function displayResultsFromYoutube(responseJson) {
             new YT.Player(`player${i}`, {
                 height: '210',
                 width: '375',
+                enablejsapi: 1,
                 videoId: responseJson.items[i].id.videoId,
                 events: {
                     // 'onReady': onPlayerReady,
@@ -294,13 +296,13 @@ function getBestHackathons() {
         })
         .then(responseJson => displayResultsFromEventBrite(responseJson))
         .catch(err => {
-            $("#js-youtube-error-message").text(`Something went wrong: ${err.message}`);
+            console.log(err.message);
         });
 }
 
 getBestHackathons();
 
-const searchHackathonVideos = "https://cors-anywhere.herokuapp.com/https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=6&order=relevance&q=hackathon&type=video&videoDefinition=high&videoEmbeddable=true&key=AIzaSyD8npOvMraf7uV-1NEeGJMhs6ihtPL6_-0";
+const searchHackathonVideos = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=8&order=relevance&q=hackathon&type=video&videoDefinition=high&videoEmbeddable=true&key=AIzaSyD8npOvMraf7uV-1NEeGJMhs6ihtPL6_-0";
 
 function getVideosFromYoutube() {
     
@@ -313,7 +315,7 @@ function getVideosFromYoutube() {
         })
         .then(responseJson => displayResultsFromYoutube(responseJson))
         .catch(err => {
-            $("#js-youtube-error-message").text(`Something went wrong: ${err.message}`);
+            console.log(err.message);
         });
 }
 
