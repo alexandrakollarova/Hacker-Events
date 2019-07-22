@@ -193,10 +193,11 @@ function displayResultsFromYoutube(responseJson) {
                 height: '210',
                 width: '375',
                 enablejsapi: 1,
-                videoId: responseJson.items[i].id.videoId,         
-                playerVars: {
-                    origin: "https://www.youtube.com"
-                },
+                videoId: responseJson.items[i].id.videoId,  
+                host: "https://www.youtube.com",       
+                // playerVars: {
+                //     origin: "https://www.youtube.com"
+                // },
                 events: {
                     // 'onReady': onPlayerReady,
                     'onStateChange': onPlayerStateChange
