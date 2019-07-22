@@ -12,28 +12,25 @@
     <!-- FONTS -->
     <link href="https://fonts.googleapis.com/css?family=DM+Sans:400,700&display=swap" rel="stylesheet">
     <!-- STYLE -->
-    <link rel="stylesheet" href="main.css"> 
+    <link rel="stylesheet" href="main.css" type="text/css"> 
 </head>
 <body>
 
     <nav>
         <header>
-            <h1 class="hacker">Hacker</h1>
-            <span>
-                <h1>EVENTS</h1>
-            </span>            
+            <h1 class="hacker">Hacker</h1><span><h1>EVENTS</h1></span>            
         </header>
 
         <i class="fa coffee-menu" id="coffee-menu">&#xf0f4;</i>
   
-        <div id="nav" class="nav" hidden>
+        <section id="nav" class="nav" hidden>
             <i class='fas arrow-close' id="arrow-close">&#xf061;</i>
 
-            <div class="open-nav"> 
+            <section class="open-nav"> 
                 <button onclick="whatsHackathonFunction()"><span>What's</span> HACKATHON</button>
                 <button onclick="getInspired()">Get Inspired</button>
-            </div>
-        </div>                     
+            </section>
+        </section>                     
     </nav>
 
     <section class="hero">
@@ -49,7 +46,7 @@
         <h3>Find all hackathons around the world.</h3>
 
         <form>
-            <label for="search-input">
+            <label for="js-search-input">
                 <input type="text" name="search-input" placeholder="e.g. Boston" class="search-input" id="js-search-input">
             </label>
 
@@ -72,10 +69,10 @@
         <section class="whats-hackathon" id="whats-hackathon">
             <img src="images/whats-hackathon.png" alt="whats-hackathon" class="whats-hackathon-img">
 
-            <div class="whats-hackathon-copy">
+            <section class="whats-hackathon-copy">
                 <h4 class="span-heading"><span>What's</span> HACKATHON</h4>        
                 <p class="whats-hackathon-desc">A hackathon is a design sprint-like event in which computer programmers and others involved in software development, including graphic designers, interface designers, project managers, and others, often including domain experts, collaborate intensively on software projects.</p>
-            </div>
+            </section>
             
         </section>
 
@@ -85,7 +82,7 @@
 
             <section class="youtube-results" id="js-youtube-results"></section>   
 
-            <div class="players">
+            <section class="players">
                 <div class="player" id="player0"></div>
                 <div class="player" id="player1"></div>
                 <div class="player" id="player2"></div>
@@ -94,7 +91,7 @@
                 <div class="player" id="player5"></div>
                 <div class="player" id="player6"></div>
                 <div class="player" id="player7"></div>                
-            </div>
+            </section>
         </section>
     </main>
 
