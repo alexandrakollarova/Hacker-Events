@@ -1,5 +1,22 @@
 "use strict"
 
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    document.getElementById("scroll-to-top").style.display = "block";
+  } else {
+    document.getElementById("scroll-to-top").style.display = "none";
+  }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+
 $("#coffee-menu").on("click", e => {
     $("#coffee-menu").hide();
     $("#nav").show();
@@ -15,8 +32,8 @@ function whatsHackathonFunction() {
     elmnt.scrollIntoView();
 }
 
-function learnHowFunction() {
-    var elmnt = document.getElementById("js-youtube-results");
+function getInspired() {
+    var elmnt = document.getElementById("youtube-results");
     elmnt.scrollIntoView();
 }
 
@@ -35,7 +52,7 @@ function geoFindMe() {
         latitude  = position.coords.latitude.toFixed(6).toString();
         longitude = position.coords.longitude.toFixed(6).toString(); 
        
-        searchDefaultURLFromEventBrite = "https://cors-anywhere.herokuapp.com/https://www.eventbriteapi.com/v3/events/search/?q=hackathons&expand=venue,organizer&location.latitude=" + latitude + "&location.longitude=" + longitude;
+        searchDefaultURLFromEventBrite = "https://cors-anywhere.herokuapp.com/https://www.eventbriteapi.com/v3/events/search/?q=hackathons&sort_by=date&expand=venue,organizer&location.latitude=" + latitude + "&location.longitude=" + longitude;
     }
 
     function error() {
@@ -81,7 +98,6 @@ function displayResultsFromEventBrite(responseJson) {
                 </div>`
             );
         } else {
-
             let numChars = responseJson.events[i].name.text.length; 
             let title = `<h2>${responseJson.events[i].name.text}</h2>`;
             if (numChars <= 60) {
@@ -102,25 +118,28 @@ function displayResultsFromEventBrite(responseJson) {
                 isFree = `<i class="material-icons" style="color: #EC4D3C; margin-top: -10px">&#xe227;</i>`;
             }
 
-            let venueName;        
-            if (responseJson.events[i].venue.name) {
-                venueName = responseJson.events[i].venue.name;
-            } else {
-                venueName = "TBA"
-            }
+            let venueName = "TBA"
+            let venueAddressCity = ""
+            let venueAddressRegion = ""
+            if (responseJson.events[i].venue !== null) {      
 
-            let venueAddressCity;
-            if (responseJson.events[i].venue.address.city) {
-                venueAddressCity = ", " + responseJson.events[i].venue.address.city;
-            } else {
-                venueAddressCity = ""
-            }
+                if (responseJson.events[i].venue.name) {
+                    venueName = responseJson.events[i].venue.name;
+                } else {
+                    venueName = "TBA"
+                }
 
-            let venueAddressRegion;
-            if (responseJson.events[i].venue.address.region) {
-                venueAddressRegion =  ", " + responseJson.events[i].venue.address.region;
-            } else {            
-                venueAddressRegion = ""
+                if (responseJson.events[i].venue.address.city) {
+                    venueAddressCity = ", " + responseJson.events[i].venue.address.city;
+                } else {
+                    venueAddressCity = ""
+                }
+
+                if (responseJson.events[i].venue.address.region) {
+                    venueAddressRegion =  ", " + responseJson.events[i].venue.address.region;
+                } else {            
+                    venueAddressRegion = ""
+                }
             }
             
             let logo;
@@ -174,7 +193,7 @@ function displayResultsFromYoutube(responseJson) {
                 width: '375',
                 videoId: responseJson.items[i].id.videoId,
                 events: {
-                    'onReady': onPlayerReady,
+                    // 'onReady': onPlayerReady,
                     'onStateChange': onPlayerStateChange
                 }
             });
@@ -226,7 +245,7 @@ function getDefaultEventsFromEventBrite(miles) {
         });
 }
 
-const searchNewInputURLFromEventBrite = "https://cors-anywhere.herokuapp.com/https://www.eventbriteapi.com/v3/events/search/?q=hackathons&expand=venue,organizer";
+const searchNewInputURLFromEventBrite = "https://cors-anywhere.herokuapp.com/https://www.eventbriteapi.com/v3/events/search/?q=hackathons&sort_by=date&expand=venue,organizer";
 
 function getEventsFromEventBrite(query, miles) {
     const options = {
@@ -256,6 +275,31 @@ function getEventsFromEventBrite(query, miles) {
         });
 }
 
+const getBestHackathonsURL = "https://cors-anywhere.herokuapp.com/https://www.eventbriteapi.com/v3/events/search/?q=hackathons&sort_by=best&expand=venue,organizer";
+
+function getBestHackathons() { 
+
+    const options = {
+        headers: new Headers({
+            Authorization: "Bearer QOAVPXW65GZI6MSN4HL4",                      
+        })
+    };
+
+    fetch(getBestHackathonsURL, options)    
+        .then(response => {         
+            if (response.ok) {                
+                return response.json();
+            }
+            throw new Error(response.statusText);
+        })
+        .then(responseJson => displayResultsFromEventBrite(responseJson))
+        .catch(err => {
+            $("#js-youtube-error-message").text(`Something went wrong: ${err.message}`);
+        });
+}
+
+getBestHackathons();
+
 const searchHackathonVideos = "https://cors-anywhere.herokuapp.com/https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=6&order=relevance&q=hackathon&type=video&videoDefinition=high&videoEmbeddable=true&key=AIzaSyD8npOvMraf7uV-1NEeGJMhs6ihtPL6_-0";
 
 function getVideosFromYoutube() {
@@ -284,16 +328,22 @@ function watchForm() {
         output.innerHTML = this.value;
     }
 
+    function scrollDownToResults() {
+        var elmnt = document.getElementById("js-scroll-results");
+        elmnt.scrollIntoView({behavior: "smooth"});
+    }
+
     $("form").submit(e => {
         e.preventDefault(); 
         let searchInput = $("#js-search-input").val();        
-        let sliderValue = slider.value+"mi";      
-
+        let sliderValue = slider.value+"mi";   
+              
         if (!(searchInput)) {
             getDefaultEventsFromEventBrite(sliderValue);
         } else {
             getEventsFromEventBrite(searchInput, sliderValue);
         }
+        scrollDownToResults();
     })
 }
 
