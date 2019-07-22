@@ -193,7 +193,8 @@ function displayResultsFromYoutube(responseJson) {
                 height: '210',
                 width: '375',
                 enablejsapi: 1,
-                videoId: responseJson.items[i].id.videoId,                
+                videoId: responseJson.items[i].id.videoId,
+                host: "https://alexandrakollarova.github.io",           
                 playerVars: {
                     origin: "https://alexandrakollarova.github.io"
                 },
