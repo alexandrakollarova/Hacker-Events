@@ -92,7 +92,6 @@ nav header span h1 {
     text-align: center;
     font-size: 24px;
     font-weight: 700;
-    padding: 0 25px
 }
 
 /* sub-headline */
@@ -148,8 +147,6 @@ form {
     margin-right: auto;
     margin-top: 30px;
     width: 90%; 
-    -webkit-transition: ease-in-out 2s;
-    transition: ease-in-out 2s;
     height: 15px; 
     -webkit-appearance: none; 
     appearance: none;
@@ -186,8 +183,6 @@ form {
 /* section headings */
 main h4 {
     font-size: 22px;
-    -webkit-transition: ease-in-out 2s;
-    transition: ease-in-out 2s;
     color: white;
     padding-left: 15px;
     padding-top: 30px;
@@ -202,9 +197,17 @@ main h4 {
 }
 
 /* whats-hackathon section */
+.whats-hackathon {
+    margin: 50px 0;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center
+}
+
 .span-heading {
     color: #543E63;
-    padding-top: 0;
     margin-bottom: 20px;
     font-weight: 700;
     word-spacing: 5px
@@ -216,11 +219,10 @@ main h4 {
 
 .whats-hackathon-img {
     width: 80%;
-    padding-top: 50px;
 }
 
 .whats-hackathon-desc {
-    margin: 0 20px;
+    margin: 0 30px;
     color: #A1667D;
     text-align: left
 }
@@ -238,8 +240,6 @@ main h4 {
     transition: 0.3s;
     width: 340px;
     height: 500px;
-    -webkit-transition: ease-in-out 2s;
-    transition: ease-in-out 2s;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 20px;
@@ -247,7 +247,6 @@ main h4 {
     padding-bottom: 10px;
     border-radius: 10px;
     text-align: left;
-    margin-top: 50px
 }
 
 .card i {
@@ -291,13 +290,32 @@ footer {
     padding: 5px
 }
 
+/* scroll-to-the-top */
+#scroll-to-top {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 99;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    background-color: #13D1FC;
+    color: white;
+    cursor: pointer;
+    padding: 15px 17px;
+    border-radius: 30px;
+}
+  
+#scroll-to-top:hover {
+    background-color: #00ccfa;
+}
+
 /* responsive */
 @media screen and (min-width: 450px) {
 
     .headline {
         top: 25%;
-        -webkit-transition: ease-in-out 2s;
-        transition: ease-in-out 2s;
     }
 
     .player {
@@ -317,21 +335,19 @@ footer {
     main h4, .learn {
         padding-top: 50px;
         font-size: 26px;
-        -webkit-transition: ease-in-out 2s;
-        transition: ease-in-out 2s;
     }
 
     .headline h1 {
         font-size: 34px;
         line-height: 40px;
-        -webkit-transition: ease-in-out 2s;
-        transition: ease-in-out 2s;
     }
 
     main h3 {
         font-size: 20px;
-        -webkit-transition: ease-in-out 2s;
-        transition: ease-in-out 2s;
+    }
+
+    .card {
+        margin-top: 50px
     }
 }
 
@@ -344,32 +360,22 @@ footer {
 
     .headline {
         top: 20%;
-        -webkit-transition: ease-in-out 2s;
-        transition: ease-in-out 2s;
     }
 
     .background-image {
         width: 90%;
-        -webkit-transition: ease-in-out 2s;
-        transition: ease-in-out 2s;
     }
 
     form {
         width: 500px;
-        -webkit-transition: ease-in-out 2s;
-        transition: ease-in-out 2s;
     }
 
     .slider {
         width: 80%;
-        -webkit-transition: ease-in-out 2s;
-        transition: ease-in-out 2s;
     }
 
     .whats-hackathon-img {
         width: 80%;
-        -webkit-transition: ease-in-out 2s;
-        transition: ease-in-out 2s;
     }
 }
 
@@ -377,56 +383,55 @@ footer {
 
     .background-image {
         width: 80%;
-        -webkit-transition: ease-in-out 2s;
-        transition: ease-in-out 2s;
     }
 
     main h4, .learn {
         font-size: 32px;
-        -webkit-transition: ease-in-out 2s;
-        transition: ease-in-out 2s;
     } 
 
     .whats-hackathon-desc {
-        margin: 0 30px
+        margin: 0 50px
     }
 }
 
 @media screen and (min-width: 750px) {
 
-    .background-image {
-        float: left;
+    .hero {
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-end
+    }
+
+    .background-image {        
         opacity: 1;
         width: 50%
     }
 
     .headline {
         position: static;
-        padding-top: 30px;
-        padding-left: 55%;
+        width: 50%;
         text-align: left
     }
 
     main h3 {
-        clear: both;
         padding-top: 30px
+    }
+
+    .whats-hackathon {
+        flex-wrap: nowrap;
+        flex-direction: row;
     }
 
     .whats-hackathon-img {
         width: 50%;
-        float: left;
-        margin-top: -50px
+        height: 50%;
     }
 
-    .span-heading {
-        padding-top: 50px
+    .whats-hackathon-copy {
+        width: 50%;
     }
-
-    .whats-hackathon-desc {
-        padding-bottom: 60px;
-        margin-right: 40px
-    }
-
 }
 
 @media screen and (min-width: 800px) {
@@ -441,8 +446,11 @@ footer {
         justify-content: space-evenly
     }
 
-    .headline {
-        padding-top: 60px
+    @supports (-ms-ime-align: auto) {
+        .event-results {
+            display: grid;
+            grid-template-columns: auto auto auto auto;;
+        }
     }
 
     main h3 {
@@ -468,27 +476,12 @@ footer {
     main h4 {
         font-size: 36px
     }
-
-    .whats-hackathon-desc {
-        font-size: 18px;
-        padding: 0 200px
-    }
-
-    .whats-hackathon {
-        margin-bottom: 100px
-    }
-
 }
 
 @media screen and (min-width: 1000px) {
 
-    .learn-how {
-        clear: both
-    }
-
-    .whats-hackathon-img {
-        width: 40%;
-        padding-bottom: 50px
+    .background-image, .headline {
+        width: 40%
     }
 
     .player {
@@ -496,14 +489,22 @@ footer {
         height: 258px;
     }
 
+    .span-heading {
+        padding-top: 0
+    }
+
+    .whats-hackathon-img {
+        width: 40%;
+        height: 40%;
+    }
+
+    #scroll-to-top {
+        font-size: 24px;
+        padding: 15px 18px
+    }
 }
 
 @media screen and (min-width: 1100px) {
-
-    .background-image {
-        width: 45%;
-        margin-left: 5%
-    }
 
     .headline h1 {
         font-size: 56px;
@@ -520,8 +521,6 @@ footer {
 
     form {
         width: 800px;
-        -webkit-transition: ease-in-out 2s;
-        transition: ease-in-out 2s;
         padding-top: 50px
     }
 
@@ -553,18 +552,9 @@ footer {
 
 @media screen and (min-width: 1200px) {
 
-    .background-image {
-        width: 35%;
-        margin-left: 10%
-    }
-
     .headline h1 {
         font-size: 60px;
         line-height: 65px
-    }
-
-    .headline {
-        padding-left: 50%
     }
 
     main h3 {
@@ -584,15 +574,18 @@ footer {
 
 @media screen and (min-width: 1300px) {
 
+    .background-image, .headline, .whats-hackathon-img {
+        width: 35%
+    }
+
     .player {
         width: 680px;
         height: 382px;
     }
 
-    .whats-hackathon-img {
-        width: 30%
+    .whats-hackathon-desc {
+        font-size: 18px
     }
-
 }
 
 
