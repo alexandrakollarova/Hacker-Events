@@ -311,6 +311,17 @@ footer {
     background-color: #00ccfa;
 }
 
+/* unabled-location */
+.unabled-location {
+    margin-top: 40px;
+    color :#5A6B97;
+    padding: 0 30px
+}
+
+.unabled-location h5 {
+    margin-top: 10px
+}
+
 /* responsive */
 @media screen and (min-width: 450px) {
 
