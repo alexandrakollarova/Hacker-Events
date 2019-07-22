@@ -199,7 +199,7 @@ function displayResultsFromYoutube(responseJson) {
                     origin: "https://alexandrakollarova.github.io"
                 },
                 events: {
-                    'onReady': onPlayerReady,
+                    // 'onReady': onPlayerReady,
                     'onStateChange': onPlayerStateChange
                 }
             });
