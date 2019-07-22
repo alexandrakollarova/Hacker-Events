@@ -11,7 +11,7 @@ A cool place to search for hackathons around the world. Allow the browser to use
 ### Home Page
 ![alt text](images/visual1.png)
 
-### Answer CSS Questions
+### Checkout the "coffee" menu and find stuff about hackathons
 ![alt text](images/visual2.png)
 
 #### Earn Points: 
@@ -22,7 +22,7 @@ Each question worths 10 points
 ![alt text](images/visual4.png)
 
 ### Get Inspired - Watch Hackathon Videos on YouTube 
-![alt text](images/visual5.png)
+
 
 ## Tech Used:
 * JavaScript
