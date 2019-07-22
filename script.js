@@ -195,7 +195,7 @@ function displayResultsFromYoutube(responseJson) {
                 enablejsapi: 1,
                 videoId: responseJson.items[i].id.videoId,                
                 playerVars: {
-                    origin: "https://alexandrakollarova.github.io/"
+                    origin: "https://alexandrakollarova.github.io"
                 },
                 events: {
                     // 'onReady': onPlayerReady,
