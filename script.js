@@ -194,12 +194,12 @@ function displayResultsFromYoutube(responseJson) {
                 width: '375',
                 enablejsapi: 1,
                 videoId: responseJson.items[i].id.videoId,  
-                host: "https://www.youtube.com",       
-                // playerVars: {
-                //     origin: "https://www.youtube.com"
-                // },
+                host: "https://alexandrakollarova.github.io/Hacker-Events",       
+                playerVars: {
+                    origin: "https://www.youtube.com"
+                },
                 events: {
-                    // 'onReady': onPlayerReady,
+                    'onReady': onPlayerReady,
                     'onStateChange': onPlayerStateChange
                 }
             });
