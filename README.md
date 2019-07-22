@@ -4,7 +4,7 @@
 [Hacker Events](https://alexandrakollarova.github.io/Hacker-Events/)
 
 ## Description:
-A cool place to search for hackathons around the world. Allow the browser to use your location and hit Search and/or can modify your search using the slider range. Search for hackathon events in any city, state or country in the world!
+A cool place to search for hackathons around the world. Allow the browser to use your location and hit Search and/or modify your search using the slider range. Search for hackathon events in any city, state or country in the world!
 
 ## In action:
 
