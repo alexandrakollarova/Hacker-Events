@@ -30,8 +30,8 @@
             <i class='fas arrow-close' id="arrow-close">&#xf061;</i>
 
             <div class="open-nav"> 
-                <button onclick="whatsHackathonFunction()" id="whats-hackathon-scroll"><span>What's</span> HACKATHON</button>
-                <button onclick="learnHowFunction()" id="learn-how">Get Inspired</button>
+                <button onclick="whatsHackathonFunction()"><span>What's</span> HACKATHON</button>
+                <button onclick="getInspired()">Get Inspired</button>
             </div>
         </div>                     
     </nav>
@@ -46,7 +46,7 @@
 
     <main>
 
-        <h3>Find all hackathons in and beyond your city.</h3>
+        <h3>Find all hackathons around the world.</h3>
 
         <form>
             <label for="search-input">
@@ -60,7 +60,7 @@
             <p>within <span id="js-within-value"></span> mi</p>
         </form>
 
-        <section class="background-purple upcoming">
+        <section class="background-purple upcoming" id="js-scroll-results">
             <h4>Upcoming</h4>
             <div id="js-error-message"></div>
 
@@ -77,8 +77,8 @@
             
         </section>
 
-        <section class="background-purple learn-how">
-            <h4 class="span-heading learn">Get Inspired</h4>
+        <section class="background-purple learn-how" id="youtube-results">
+            <h4 class="learn">Get Inspired</h4>
             <div id="js-youtube-error-message"></div>
 
             <section class="youtube-results" id="js-youtube-results"></section>   
@@ -93,6 +93,8 @@
             </div>
         </section>
     </main>
+
+    <button onclick="topFunction()" id="scroll-to-top" title="Go to top"><i class='fas fa-arrow-up'></i></button>
 
     <footer>2019 Copyright</footer>
 
