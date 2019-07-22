@@ -197,31 +197,31 @@ function displayResultsFromYoutube(responseJson) {
                 host: "https://www.youtube.com",       
                 playerVars: {
                     origin: "https://alexandrakollarova.github.io"
-                },
-                events: {
-                    // 'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
                 }
+                // events: {
+                //     // 'onReady': onPlayerReady,
+                //     'onStateChange': onPlayerStateChange
+                // }
             });
            
         }
     }
 
-    function onPlayerReady(event) {
-        event.target.playVideo();
-    }
+    // function onPlayerReady(event) {
+    //     event.target.playVideo();
+    // }
 
-    var done = false;
-    function onPlayerStateChange(event) {
-        if (event.data == YT.PlayerState.PLAYING && !done) {
-          setTimeout(stopVideo, 6000);
-          done = true;
-        }
-    }
+    // var done = false;
+    // function onPlayerStateChange(event) {
+    //     if (event.data == YT.PlayerState.PLAYING && !done) {
+    //       setTimeout(stopVideo, 6000);
+    //       done = true;
+    //     }
+    // }
 
-    function stopVideo() {
-        player.stopVideo();
-    }
+    // function stopVideo() {
+    //     player.stopVideo();
+    // }
 }
 
 function getDefaultEventsFromEventBrite(miles) {
