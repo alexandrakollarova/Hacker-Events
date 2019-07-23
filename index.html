@@ -26,20 +26,20 @@
         <section id="nav" class="nav" hidden>
             <i class='fas arrow-close' id="arrow-close">&#xf061;</i>
 
-            <section class="open-nav"> 
+            <div class="open-nav"> 
                 <button onclick="whatsHackathonFunction()"><span>What's</span> HACKATHON</button>
                 <button onclick="getInspired()">Get Inspired</button>
-            </section>
+            </div>
         </section>                     
     </nav>
 
-    <section class="hero">
+    <div class="hero">
         <img src="images/background-img.png" alt="background-image" class="background-image">
 
         <section class="headline">
             <h1>Browse All<br> Hackathon<br> Events here</h1>
         </section>    
-    </section>
+    </div>
 
     <main>
 
@@ -47,7 +47,7 @@
 
         <form>
             <label for="js-search-input">
-                <input type="text" name="search-input" placeholder="e.g. Boston" class="search-input" id="js-search-input">
+                <input type="text" name="search-input" placeholder="e.g. Boston" class="search-input" id="js-search-input" required>
             </label>
 
             <input type="submit" value="SEARCH" class="submit-button">
@@ -80,7 +80,7 @@
             <h4 class="learn">Get Inspired</h4>
             <div id="js-youtube-error-message"></div>
 
-            <section class="youtube-results" id="js-youtube-results"></section>   
+            <div class="youtube-results" id="js-youtube-results"></div>   
 
             <section class="players">
                 <div class="player" id="player0"></div>
