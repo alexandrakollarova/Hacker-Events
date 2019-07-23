@@ -19,10 +19,16 @@ A cool place to search for hackathons around the world. Allow the browser to use
 
 ![alt text](images/visual4.png)
 
-### Get Inspired - Watch Hackathon Videos on YouTube 
+### What's Hackathon
+![alt text](images/visual5.png)
 
+### Get Inspired - Watch Hackathon Videos on YouTube 
+![alt text](images/visual6.png)
 
 ## Tech Used:
+* EventBrite API
+* YouTube Data API
+* YouTube iFrame Player API
 * JavaScript
 * jQuery
 * HTML
