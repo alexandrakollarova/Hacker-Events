@@ -495,7 +495,7 @@ footer {
         margin-top: 20px
     }
 
-    main h4 {
+    main h4, .learn {
         font-size: 36px
     }
 }
