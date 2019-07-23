@@ -447,14 +447,25 @@ footer {
 
 @media screen and (min-width: 800px) {
 
+    .upcoming h4 {
+        margin-bottom: 40px
+    }
+
+    .learn-how h4 {
+        margin-bottom: 30px
+    }
+
     .card {
-        width: 320px
+        width: 320px;
+        margin: 10px
     }
 
     .event-results {
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-evenly
+        justify-content: space-evenly;
+        margin-left: 50px;
+        margin-right: 50px
     }
 
     @supports (-ms-ime-align: auto) {
