@@ -1,7 +1,17 @@
 "use strict"
 
-// When the user scrolls down 20px from the top of the document, show the button
-window.onscroll = function() {scrollFunction()};
+let latitude;
+let longitude;
+let searchDefaultURLFromEventBrite;
+
+const searchNewInputURLFromEventBrite = "https://cors-anywhere.herokuapp.com/https://www.eventbriteapi.com/v3/events/search/?q=hackathons&sort_by=date&expand=venue,organizer";
+const getBestHackathonsURL = "https://cors-anywhere.herokuapp.com/https://www.eventbriteapi.com/v3/events/search/?q=hackathons&sort_by=best&expand=venue,organizer";
+const searchHackathonVideos = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=8&order=relevance&q=hackathon&type=video&videoDefinition=high&videoEmbeddable=true&key=AIzaSyD8npOvMraf7uV-1NEeGJMhs6ihtPL6_-0";
+
+
+window.onscroll = function() {
+    scrollFunction()
+};
 
 function scrollFunction() {
   if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
@@ -11,21 +21,22 @@ function scrollFunction() {
   }
 }
 
-// When the user clicks on the button, scroll to the top of the document
 function topFunction() {
   document.body.scrollTop = 0;
   document.documentElement.scrollTop = 0;
 }
 
-$("#coffee-menu").on("click", e => {
-    $("#coffee-menu").hide();
-    $("#nav").show();
-})
+function hideAndShowMenu() {
+    $("#coffee-menu").on("click", e => {
+        $("#coffee-menu").hide();
+        $("#nav").show();
+    })
 
-$("#arrow-close").on("click", e => {
-    $("#nav").hide();
-    $("#coffee-menu").show();
-})
+    $("#arrow-close").on("click", e => {
+        $("#nav").hide();
+        $("#coffee-menu").show();
+    })
+}
 
 function whatsHackathonFunction() {
     var elmnt = document.getElementById("whats-hackathon");
@@ -36,10 +47,6 @@ function getInspired() {
     var elmnt = document.getElementById("youtube-results");
     elmnt.scrollIntoView();
 }
-
-let latitude;
-let longitude;
-let searchDefaultURLFromEventBrite;
 
 function geoFindMe() {
     let options = {
@@ -56,8 +63,6 @@ function geoFindMe() {
     }
 
     function error() {
-        console.log('Unable to retrieve your location');
-
         $("#js-unabled-location").append(
             `<div>
             <i style='font-size:24px' class='far'>&#xf119;</i>
@@ -67,13 +72,16 @@ function geoFindMe() {
     }
 
     if (!navigator.geolocation) {
-        console.log('Geolocation is not supported by your browser');
+        $("#js-unabled-location").append(
+            `<div>
+            <i style='font-size:24px' class='far'>&#xf119;</i>
+            <h5>Sorry! We're unable to retrieve your location. Please, type in your location above and hit search.</h5>
+            </div>`
+        );
     } else {
         navigator.geolocation.getCurrentPosition(success, error, options);   
     }
 }
-
-$(geoFindMe);
 
 
 function formatQueryParams(params) {
@@ -84,8 +92,6 @@ function formatQueryParams(params) {
 }
 
 function displayResultsFromEventBrite(responseJson) {
-    console.log(responseJson);
-
     $("#js-event-results").empty();
 
     for (let i = 0; i <= responseJson.events.length; i++) {
@@ -173,8 +179,6 @@ function displayResultsFromEventBrite(responseJson) {
     }        
 }
 
-
-
 function displayResultsFromYoutube(responseJson) {
 
     let tag = document.createElement('script');
@@ -185,43 +189,19 @@ function displayResultsFromYoutube(responseJson) {
 
     window.onYouTubeIframeAPIReady = function () {
     
-        console.log(responseJson);
-
         for (let i = 0; i < responseJson.items.length; i++) {
             
             new YT.Player(`player${i}`, {
-                height: '210',
-                width: '375',
+                height: '174',
+                width: '310',
                 enablejsapi: 1,
                 videoId: responseJson.items[i].id.videoId,  
                 host: "https://www.youtube.com",       
-                playerVars: {
-                    origin: "https://alexandrakollarova.github.io"
-                }
-                // events: {
-                //     // 'onReady': onPlayerReady,
-                //     'onStateChange': onPlayerStateChange
-                // }
+                origin: "https://alexandrakollarova.github.io"              
             });
            
         }
     }
-
-    // function onPlayerReady(event) {
-    //     event.target.playVideo();
-    // }
-
-    // var done = false;
-    // function onPlayerStateChange(event) {
-    //     if (event.data == YT.PlayerState.PLAYING && !done) {
-    //       setTimeout(stopVideo, 6000);
-    //       done = true;
-    //     }
-    // }
-
-    // function stopVideo() {
-    //     player.stopVideo();
-    // }
 }
 
 function getDefaultEventsFromEventBrite(miles) {
@@ -247,11 +227,14 @@ function getDefaultEventsFromEventBrite(miles) {
         })
         .then(responseJson => displayResultsFromEventBrite(responseJson))
         .catch(err => {
-            console.log(err.message);
+            $("#js-event-results").append(
+                `<div style="color: white">
+                    <i style='font-size:24px' class='far'>&#xf119;</i>
+                    <h2>Search failed to complete. Please, check your Internet connection and try again.</h2>
+                </div>`
+            );
         });
 }
-
-const searchNewInputURLFromEventBrite = "https://cors-anywhere.herokuapp.com/https://www.eventbriteapi.com/v3/events/search/?q=hackathons&sort_by=date&expand=venue,organizer";
 
 function getEventsFromEventBrite(query, miles) {
     const options = {
@@ -277,14 +260,16 @@ function getEventsFromEventBrite(query, miles) {
         })
         .then(responseJson => displayResultsFromEventBrite(responseJson))
         .catch(err => {
-            console.log(err.message);
+            $("#js-event-results").append(
+                `<div style="color: white">
+                    <i style='font-size:24px' class='far'>&#xf119;</i>
+                    <h2>Search failed to complete. Please, check your Internet connection and try again.</h2>
+                </div>`
+            );
         });
 }
 
-const getBestHackathonsURL = "https://cors-anywhere.herokuapp.com/https://www.eventbriteapi.com/v3/events/search/?q=hackathons&sort_by=best&expand=venue,organizer";
-
 function getBestHackathons() { 
-
     const options = {
         headers: new Headers({
             Authorization: "Bearer QOAVPXW65GZI6MSN4HL4",                      
@@ -300,13 +285,15 @@ function getBestHackathons() {
         })
         .then(responseJson => displayResultsFromEventBrite(responseJson))
         .catch(err => {
-            console.log(err.message);
-        });
+            console.log(err.message)
+            // $("#js-event-results").append(
+            //     `<div style="color: white">
+            //         <i style='font-size:24px' class='far'>&#xf119;</i>
+            //         <h2>Search failed to complete. Please, check your Internet connection and try again.</h2>
+            //     </div>`
+            // );
+         });
 }
-
-getBestHackathons();
-
-const searchHackathonVideos = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=8&order=relevance&q=hackathon&type=video&videoDefinition=high&videoEmbeddable=true&key=AIzaSyD8npOvMraf7uV-1NEeGJMhs6ihtPL6_-0";
 
 function getVideosFromYoutube() {
     
@@ -319,16 +306,19 @@ function getVideosFromYoutube() {
         })
         .then(responseJson => displayResultsFromYoutube(responseJson))
         .catch(err => {
-            console.log(err.message);
+            $("#js-youtube-error-message").append(
+                `<div style="color: white">
+                    <i style='font-size:24px' class='far'>&#xf119;</i>
+                    <h2>Videos failed to load. Please, check your Internet connection and refresh the page.</h2>
+                </div>`
+            );
         });
 }
-
-getVideosFromYoutube();
 
 function watchForm() {
     var slider = document.getElementById("js-slider");
     var output = document.getElementById("js-within-value");
-    output.innerHTML = slider.value; // Display the default slider value
+    output.innerHTML = slider.value; 
 
     slider.oninput = function() {
         output.innerHTML = this.value;
@@ -353,6 +343,10 @@ function watchForm() {
     })
 }
 
+$(hideAndShowMenu);
+$(geoFindMe);
+$(getBestHackathons);
+$(getVideosFromYoutube);
 $(watchForm);
 
   
