@@ -1,6 +1,6 @@
 # Hacker-Events
 
-## Link: 
+## Live: 
 [Hacker Events](https://alexandrakollarova.github.io/Hacker-Events/)
 
 ## Description:
