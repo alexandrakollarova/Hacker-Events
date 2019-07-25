@@ -94,7 +94,7 @@ function formatQueryParams(params) {
 function displayResultsFromEventBrite(responseJson) {
     $("#js-event-results").empty();
 
-    for (let i = 0; i <= responseJson.events.length; i++) {
+    for (let i = 0; i < responseJson.events.length; i++) {
         
         if (responseJson.events.length === 0) {
             $("#js-event-results").append(
@@ -105,6 +105,7 @@ function displayResultsFromEventBrite(responseJson) {
             );
             $("#js-event-results").css("padding", "20px");
         } else {
+
             let numChars = responseJson.events[i].name.text.length; 
             let title = `<h2>${responseJson.events[i].name.text}</h2>`;
             if (numChars <= 60) {
