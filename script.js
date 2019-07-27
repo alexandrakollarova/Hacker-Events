@@ -94,91 +94,106 @@ function formatQueryParams(params) {
 function displayResultsFromEventBrite(responseJson) {
     $("#js-event-results").empty();
 
-    for (let i = 0; i < responseJson.events.length; i++) {
-        
-        if (responseJson.events.length === 0) {
-            $("#js-event-results").append(
-                `<div style="color: white">
-                    <i style='font-size:24px' class='far'>&#xf119;</i>
-                    <h2>No hackathons found in this search.</h2>
-                </div>`
-            );
-            $("#js-event-results").css("padding", "20px");
-        } else {
+    if (responseJson.events.length === 0) {
+        $("#js-event-results").append(
+            `<div style="color: white">
+                <i style='font-size:24px' class='far'>&#xf119;</i>
+                <h2>No hackathons found in this search.</h2>
+            </div>`
+        );
+        $("#js-event-results").css("padding", "20px");
 
-            let numChars = responseJson.events[i].name.text.length; 
-            let title = `<h2>${responseJson.events[i].name.text}</h2>`;
-            if (numChars <= 60) {
-                title = `<h2 style="font-size: 1.2em">${responseJson.events[i].name.text}</h2>`
-            }       
-            else if (numChars >= 61) {
-                title = `<h2 style="font-size: 0.9em">${responseJson.events[i].name.text}</h2>`
-            }
+    } else {
+
+        for (let i = 0; i < responseJson.events.length; i++) {
             
-            const startDateFromAPI = responseJson.events[i].start.local;       
-            const startDate = new Date(startDateFromAPI); 
-            const dateAsNiceString = startDate.toLocaleString([], {weekday: 'short', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute:'2-digit'});
-
-            let isFree;
-            if (responseJson.events[i].is_free) {
-                isFree = "Free";
-            }  else {
-                isFree = `<i class="material-icons" style="color: #EC4D3C; margin-top: -10px">&#xe227;</i>`;
-            }
-
-            let venueName = "TBA"
-            let venueAddressCity = ""
-            let venueAddressRegion = ""
-            if (responseJson.events[i].venue !== null) {      
-
-                if (responseJson.events[i].venue.name) {
-                    venueName = responseJson.events[i].venue.name;
-                } else {
-                    venueName = "TBA"
-                }
-
-                if (responseJson.events[i].venue.address.city) {
-                    venueAddressCity = ", " + responseJson.events[i].venue.address.city;
-                } else {
-                    venueAddressCity = ""
-                }
-
-                if (responseJson.events[i].venue.address.region) {
-                    venueAddressRegion =  ", " + responseJson.events[i].venue.address.region;
-                } else {            
-                    venueAddressRegion = ""
-                }
-            }
+            // if (responseJson.events.length === 0) {
+            //     $("#js-event-results").append(
+            //         `<div style="color: white">
+            //             <i style='font-size:24px' class='far'>&#xf119;</i>
+            //             <h2>No hackathons found in this search.</h2>
+            //         </div>`
+            //     );
+            //     $("#js-event-results").css("padding", "20px");
             
-            let logo;
-            if (responseJson.events[i].logo && responseJson.events[i].logo.original && responseJson.events[i].logo.original.url) {            
-                logo = responseJson.events[i].logo.original.url;                   
-            } else {
-                logo = "images/question-mark.png";
-            }
 
-                        
-            $("#js-event-results").append(
-                `<section class="event-card">
-                    <a href="${responseJson.events[i].url}" target="_blank">
-                        <div class="card">
-                            <img src="${logo}" id="js-logo-url">
-                            <div class="container">
-                                ${title}
-                                <div class="inner-container">
-                                    <i class="material-icons" style="font-size: 28px">&#xe7f1;</i> 
-                                    <h5>${venueName}${venueAddressCity}${venueAddressRegion}</h5>
-                                    <i class='fa' style="padding-left: 3px">&#xf073;</i>                                                       
-                                    <h5 style="padding-left: 38px">${dateAsNiceString}</h5>                            
-                                    <h5 style="color: #EC4D3C">${isFree}</h5>
+                let numChars = responseJson.events[i].name.text.length; 
+                let title = `<h2>${responseJson.events[i].name.text}</h2>`;
+                if (numChars <= 60) {
+                    title = `<h2 style="font-size: 1.2em">${responseJson.events[i].name.text}</h2>`
+                }       
+                else if (numChars >= 61) {
+                    title = `<h2 style="font-size: 0.9em">${responseJson.events[i].name.text}</h2>`
+                }
+                
+                const startDateFromAPI = responseJson.events[i].start.local;       
+                const startDate = new Date(startDateFromAPI); 
+                const dateAsNiceString = startDate.toLocaleString([], {weekday: 'short', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute:'2-digit'});
+
+                let isFree;
+                if (responseJson.events[i].is_free) {
+                    isFree = "Free";
+                }  else {
+                    isFree = `<i class="material-icons" style="color: #EC4D3C; margin-top: -10px">&#xe227;</i>`;
+                }
+
+                let venueName = "TBA"
+                let venueAddressCity = ""
+                let venueAddressRegion = ""
+                if (responseJson.events[i].venue !== null) {      
+
+                    if (responseJson.events[i].venue.name) {
+                        venueName = responseJson.events[i].venue.name;
+                    } else {
+                        venueName = "TBA"
+                    }
+
+                    if (responseJson.events[i].venue.address.city) {
+                        venueAddressCity = ", " + responseJson.events[i].venue.address.city;
+                    } else {
+                        venueAddressCity = ""
+                    }
+
+                    if (responseJson.events[i].venue.address.region) {
+                        venueAddressRegion =  ", " + responseJson.events[i].venue.address.region;
+                    } else {            
+                        venueAddressRegion = ""
+                    }
+                }
+                
+                let logo;
+                if (responseJson.events[i].logo && responseJson.events[i].logo.original && responseJson.events[i].logo.original.url) {            
+                    logo = responseJson.events[i].logo.original.url;                   
+                } else {
+                    logo = "images/question-mark.png";
+                }
+
+                            
+                $("#js-event-results").append(
+                    `<section class="event-card">
+                        <a href="${responseJson.events[i].url}" target="_blank">
+                            <div class="card">
+                                <img src="${logo}" id="js-logo-url">
+                                <div class="container">
+                                    ${title}
+                                    <div class="inner-container">
+                                        <i class="material-icons" style="font-size: 28px">&#xe7f1;</i> 
+                                        <h5>${venueName}${venueAddressCity}${venueAddressRegion}</h5>
+                                        <i class='fa' style="padding-left: 3px">&#xf073;</i>                                                       
+                                        <h5 style="padding-left: 38px">${dateAsNiceString}</h5>                            
+                                        <h5 style="color: #EC4D3C">${isFree}</h5>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </a>
-                </section>`);
-        }
+                        </a>
+                    </section>`);
+            }
     }        
 }
+
+// There is an issue with the YT iFrame Player API - it causes the following error (it's not something that I can fix on my end)
+// ERROR: Failed to execute 'postMessage' on 'DOMWindow': The target origin provided ('<URL>') does not match the recipient window's origin ('null').
+// More on this issue here https://github.com/videojs/videojs-youtube/issues/67#issuecomment-405951335
 
 function displayResultsFromYoutube(responseJson) {
 
@@ -286,13 +301,12 @@ function getBestHackathons() {
         })
         .then(responseJson => displayResultsFromEventBrite(responseJson))
         .catch(err => {
-            console.log(err.message)
-            // $("#js-event-results").append(
-            //     `<div style="color: white">
-            //         <i style='font-size:24px' class='far'>&#xf119;</i>
-            //         <h2>Search failed to complete. Please, check your Internet connection and try again.</h2>
-            //     </div>`
-            // );
+            $("#js-event-results").append(
+                `<div style="color: white">
+                    <i style='font-size:24px' class='far'>&#xf119;</i>
+                    <h2>Search failed to complete. Please, check your Internet connection and try again.</h2>
+                </div>`
+            );
          });
 }
 
